@@ -52,8 +52,8 @@ local function grabinput(ply, cmd)
 		pos:Normalize()
 		head:ApplyForceCenter(pos * 1500)
 	end
-
-	if (not cmd:KeyDown(IN_DUCK) and not cmd:KeyDown(IN_SPEED)) and body:GetVelocity():Distance(Vector()) > 500 then
+	--Air Control
+	if (not cmd:KeyDown(IN_DUCK) and not cmd:KeyDown(IN_SPEED)) and body:GetVelocity().z < -500 then
 		for i = 1, body:GetPhysicsObjectCount()-1 do
 			local bone = body:GetPhysicsObjectNum(i)
 			local pos = bone:GetPos() - body:GetPos()

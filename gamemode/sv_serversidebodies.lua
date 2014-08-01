@@ -58,9 +58,10 @@ function meta:CreateRagdoll()
 	Ent.PhysgunDisabled	= false
 	Ent.BoneDamage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
 	Ent.BoneDamage[0] = 0
-	Ent:SetNWInt("BreakPoint", 255)
+	Ent:SetNWInt("BreakPoint", 500)
 
 	function physics(ent, data, obj)
+		if data.HitEntity == ent then return end
 		local impact = (data.OurOldVelocity * data.HitNormal):Distance(Vector())
 		impact = math.floor(impact)
 		if impact > 100 then
@@ -76,7 +77,11 @@ function meta:CreateRagdoll()
 			trace.ignoreworld = true
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
-			ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 200
+			if bone == 10 then --Head bone
+				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 2 - 200
+			else
+				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 200
+			end
 			ent:SetNWInt("BoneDamage" .. ent:TranslatePhysBoneToBone(bone), ent.BoneDamage[bone])
 		end
 	end

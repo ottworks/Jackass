@@ -1,5 +1,6 @@
 -- Made by Slight
 -- Fixed for Garry's Mod 13 by Blazeard/QuentinDylanP
+-- Modified by Ott for use in his gamemode
 local meta = FindMetaTable("Player")
 if (!meta) then return end
 

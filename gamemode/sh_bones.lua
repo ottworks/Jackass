@@ -112,7 +112,7 @@ if CLIENT then
 				end
 
 				local damage = ply:GetNWInt("BoneDamage" .. k)
-				damage = math.floor(damage / (breakpoint / 10)) * (breakpoint / 10)
+				damage = math.floor(damage / (breakpoint / 4)) * (breakpoint / 4)
 				render.DrawBeam(pos, pos2, size * 0.2, 0, 1, Color(255, 255 - (damage / breakpoint) * 255, 255 - (damage / breakpoint) * 255))
 			end
 		end

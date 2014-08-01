@@ -78,7 +78,7 @@ function meta:CreateRagdoll()
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
 			if bone == 10 then --Head bone
-				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 2 - 200
+				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 1.5 - 200
 			else
 				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 200
 			end

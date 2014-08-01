@@ -92,11 +92,9 @@ if CLIENT then
 			if not IsValid(skeletons[i]) then 
 				table.remove(skeletons, i) 
 				break 
-				--continue
 			elseif not skeletons[i]:GetRenderBones() then
 				table.remove(skeletons, i) 
 				break
-				--continue 
 			end
 			local ply = skeletons[i]
 			local breakpoint = ply:GetNWInt("BreakPoint")
@@ -105,7 +103,6 @@ if CLIENT then
 				if ( !ply:BoneHasFlag( k, BONE_USED_BY_HITBOX ) ) then continue end
 				local pos, ang = ply:GetBonePosition(k)
 				local pos2 = ply:GetBonePosition(ply:GetBoneParent(k))
-				--if ang == Angle() then continue end
 
 				local size = ply:BoneLength(k)
 				if size > 10 then 

@@ -1,7 +1,7 @@
 GM.Name = "Jackass"
-GM.Author = "Ott"
+GM.Author = "Ott, RzDat"
 GM.Email = "N/A"
-GM.Website = "www.steamcommunity.com/id/daaott"
+GM.Website = "https://github.com/DaaOtt/Jackass"
 
 include("sh_bones.lua")
 

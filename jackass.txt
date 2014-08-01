@@ -1,0 +1,6 @@
+"armageddon"
+{
+	"base"		"base"
+	"title"		"Jackass"
+	"menusystem"	"1"
+}

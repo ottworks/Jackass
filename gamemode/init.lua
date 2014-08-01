@@ -6,6 +6,7 @@ AddCSLuaFile("sh_bones.lua")
 include("shared.lua")
 include("sv_serversidebodies.lua")
 include("sv_puppetmaster.lua")
+include("sv_sql_database.lua")
 
 function ExitRagdoll(ply, cmd)
 	ply:SetMoveType(MOVETYPE_WALK)
@@ -83,3 +84,8 @@ function GM:GetFallDamage(ply, speed)
 	EnterRagdoll(ply)
 end
 
+function count(o)
+	local a = 0
+	for _ in pairs(o) do a = a + 1 end 
+	return a
+end

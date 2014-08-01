@@ -1,11 +1,11 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("cl_serversidebodies.lua")
-AddCSLuaFile("bones.lua")
+AddCSLuaFile("sh_bones.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")
-include("puppetmaster.lua")
+include("sv_puppetmaster.lua")
 
 function GM:PlayerLoadout(ply)
 	ply:SetModel("models/player/Group02/male_02.mdl")

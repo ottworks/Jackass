@@ -22,6 +22,7 @@ function ExitRagdoll(ply, cmd)
 				tr.mins = Vector(-16, -16, 0)
 				tr.maxs = Vector(16, 16, 72)
 				tr.output = trace
+				tr.mask = MASK_PLAYERSOLID
 			for i = 1, 20 do
 				util.TraceHull(tr)
 				if trace.Hit then

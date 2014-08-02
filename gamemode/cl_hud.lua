@@ -43,9 +43,21 @@ net.Receive("stunt_failure", function(len)
 	timer.Simple(2, function() profit2.a = 0 end)
 end)
 
+function format_int(number)
+
+  local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
+
+  -- reverse the int-string and append a comma to all blocks of 3 digits
+  int = int:reverse():gsub("(%d%d%d)", "%1,")
+
+  -- reverse the int-string back remove an optional comma and put the 
+  -- optional minus and fractional part back
+  return minus .. int:reverse():gsub("^,", "") .. fraction
+end
+
 local function drawmoney()
-	draw.SimpleText(money.prefix .. LocalPlayer():GetNWInt("money"), money.font, money.w, money.h, money.c, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
-	draw.SimpleText(profit2.prefix .. LocalPlayer():GetRagdollEntity():GetNWInt("profits"), profit2.font, profit2.w, profit2.h, Color(profit2.c.r, profit2.c.g, profit2.c.b, profit2.a), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+	draw.SimpleText(money.prefix .. format_int(LocalPlayer():GetNWInt("money")), money.font, money.w, money.h, money.c, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+	draw.SimpleText(profit2.prefix .. format_int(LocalPlayer():GetRagdollEntity():GetNWInt("profits")), profit2.font, profit2.w, profit2.h, Color(profit2.c.r, profit2.c.g, profit2.c.b, profit2.a), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
 	if easing then
 		profit2.h = profit.h - easings.easeInBack(ease, 0.5, 0, 1) * 48
 		profit2.a = profit.a - easings.easeInBack(ease, 0.5, 0, 1) * 255

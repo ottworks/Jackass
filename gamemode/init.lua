@@ -2,6 +2,8 @@ AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("cl_serversidebodies.lua")
 AddCSLuaFile("sh_bones.lua")
+AddCSLuaFile("cl_hud.lua")
+AddCSLuaFile("includes/modules/easings.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")
@@ -45,6 +47,8 @@ function ExitRagdoll(ply, cmd)
 	end)
 end
 function EnterRagdoll(ply, cmd)
+	net.Start("stunt_begin")
+	net.Send(ply)
 	ply:CreateRagdoll()
 	ply:SetMoveType(MOVETYPE_NONE)
 	ply:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
@@ -56,6 +60,9 @@ function EnterRagdoll(ply, cmd)
 		end
 	end)
 end
+util.AddNetworkString("stunt_success")
+util.AddNetworkString("stunt_failure")
+util.AddNetworkString("stunt_begin")
 
 function GM:PlayerLoadout(ply)
 	ply:SetModel("models/player/Group02/male_02.mdl")
@@ -64,7 +71,11 @@ end
 function GM:Move(ply, cmd)
 	if cmd:KeyReleased(IN_JUMP) then
 		if IsValid(ply:GetRagdollEntity()) then
+			local profit = ply:GetRagdollEntity():GetNWInt("profits")
 			ExitRagdoll(ply, cmd)
+			net.Start("stunt_success")
+			net.Send(ply)
+			timer.Simple(0.4, function() ply:SetNWInt("money", ply:GetNWInt("money") + profit) end)
 		elseif not ply:IsOnGround() then
 			EnterRagdoll(ply, cmd)
 		end
@@ -77,6 +88,8 @@ function GM:Move(ply, cmd)
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] > ply:GetRagdollEntity():GetNWInt("BreakPoint") then
 			ExitRagdoll(ply, cmd)
+			net.Start("stunt_failure")
+			net.Send(ply)
 		end
 	end
 end 

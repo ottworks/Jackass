@@ -40,7 +40,7 @@ end)
 
 net.Receive("stunt_failure", function(len)
 	profit2.c = Color(255, 110, 110)
-	timer.Simple(1, function() profit2.a = 0 end)
+	timer.Simple(2, function() profit2.a = 0 end)
 end)
 
 local function drawmoney()

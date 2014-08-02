@@ -70,7 +70,7 @@ function meta:CreateRagdoll()
 				data.HitEntity:Break()
 			end
 		end
-		if impact > 200 then
+		if impact > 300 then
 			local trace = {}
 			trace.start = data.HitPos
 			trace.endpos = data.HitPos + data.HitNormal * -5
@@ -78,11 +78,12 @@ function meta:CreateRagdoll()
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
 			if bone == 10 then --Head bone
-				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 1.5 - 200
+				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 1.5 - 300
 			else
-				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 200
+				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 300
 			end
 			ent:SetNWInt("BoneDamage" .. ent:TranslatePhysBoneToBone(bone), ent.BoneDamage[bone])
+			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + (impact - 300) / 10))
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

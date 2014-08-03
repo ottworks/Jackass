@@ -12,6 +12,8 @@ include("sv_sql_database.lua")
 
 resource.AddFile("sound/jackass/chaching.wav")
 
+local failed = false
+
 function ExitRagdoll(ply, cmd)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
@@ -90,8 +92,12 @@ function GM:Move(ply, cmd)
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] > ply:GetRagdollEntity():GetNWInt("BreakPoint") then
 			ExitRagdoll(ply, cmd)
-			net.Start("stunt_failure")
-			net.Send(ply)
+			if not failed then
+				net.Start("stunt_failure")
+				net.Send(ply)
+				failed = true
+				timer.Simple(0.1, function() failed = false end)
+			end
 		end
 	end
 end 

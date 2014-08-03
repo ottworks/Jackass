@@ -27,6 +27,7 @@ local ease = 0
 local easing = false
 
 
+
 net.Receive("stunt_begin", function()
 	profit2 = setmetatable({}, {__index = profit})
 	easing = false
@@ -36,12 +37,19 @@ end)
 net.Receive("stunt_success", function(len)
 	easing = true
 	ease = 0
+	surface.PlaySound("jackass/chaching.wav")
 end)
 
 net.Receive("stunt_failure", function(len)
 	profit2.c = Color(255, 110, 110)
-	timer.Simple(2, function() profit2.a = 0 end)
+	timer.Simple(2, function()
+		if not IsValid(LocalPlayer():GetRagdollEntity()) then
+			profit2.a = 0 
+		end
+	end)
 end)
+
+
 
 function format_int(number)
 

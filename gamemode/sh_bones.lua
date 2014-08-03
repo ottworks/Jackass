@@ -82,9 +82,10 @@ if CLIENT then
 			print(table.RemoveByValue(skeletons, ent))
 		end
 	end)
-
+	local model = ClientsideModel("models/Gibs/HGIBS.mdl", RENDERGROUP_OPAQUE)
 	local bonemat = Material("widgets/bone.png",  "unlitsmooth")
 	local smallbonemat = Material("widgets/bone_small.png", "unlitsmooth" )
+	local skullmat = Material("pp/copy", "unlitgeneric")
 	skeletons = skeletons or {}
 	local function rattlebones()
 		cam.IgnoreZ(true)
@@ -115,8 +116,22 @@ if CLIENT then
 				damage = math.floor(damage / (breakpoint / 4)) * (breakpoint / 4)
 				render.DrawBeam(pos, pos2, size * 0.2, 0, 1, Color(255, 255 - (damage / breakpoint) * 255, 255 - (damage / breakpoint) * 255))
 			end
+			local pos, ang = LocalToWorld(Vector(3.7, -1.3, 0), Angle(0, -90, -90), ply:GetBonePosition(6))
+			local damage = ply:GetNWInt("BoneDamage6")
+			render.ModelMaterialOverride(skullmat)
+				model:SetRenderOrigin( pos );
+				model:SetRenderAngles( ang );
+				model:SetupBones();
+					render.SetColorModulation(0.5, 0.5, 0.5)
+					model:SetModelScale(0.9, 0)
+					model:DrawModel()
+					model:SetModelScale(0.8, 0)
+					render.SetColorModulation(1, 1 - (damage / breakpoint), 1 - (damage / breakpoint))
+					model:DrawModel();	
+			render.ModelMaterialOverride()
 		end
 		cam.IgnoreZ(false)
+		model:SetRenderOrigin(Vector())
 	end
 	hook.Add("PostDrawTranslucentRenderables", "rattlemebones", rattlebones)
 end

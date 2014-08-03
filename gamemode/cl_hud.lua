@@ -47,6 +47,7 @@ net.Receive("stunt_failure", function(len)
 			profit2.a = 0 
 		end
 	end)
+	surface.PlaySound("buttons/weapon_cant_buy.wav")
 end)
 
 

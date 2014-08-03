@@ -10,6 +10,8 @@ include("sv_serversidebodies.lua")
 include("sv_puppetmaster.lua")
 include("sv_sql_database.lua")
 
+resource.AddFile("sound/jackass/chaching.wav")
+
 function ExitRagdoll(ply, cmd)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
@@ -101,4 +103,10 @@ function count(o)
 	local a = 0
 	for _ in pairs(o) do a = a + 1 end 
 	return a
+end
+
+function GM:SetupPlayerVisibility(ply, viewentity)
+	if IsValid(ply:GetRagdollEntity()) then
+		AddOriginToPVS(ply:GetRagdollEntity():GetPos())
+	end
 end

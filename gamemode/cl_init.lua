@@ -1,6 +1,7 @@
 include("shared.lua")
 include("cl_serversidebodies.lua")
 include("cl_hud.lua")
+include("cl_spawnmenu.lua")
 
 
 function GM:CalcView(ply, pos, ang, fov, nearz, farz)
@@ -38,4 +39,3 @@ function hidehud(name)
 	end
 end
 hook.Add("HUDShouldDraw", "HideHud", hidehud)
-

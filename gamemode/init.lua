@@ -4,6 +4,7 @@ AddCSLuaFile("cl_serversidebodies.lua")
 AddCSLuaFile("sh_bones.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("includes/modules/easings.lua")
+AddCSLuaFile("cl_spawnmenu.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")

@@ -4,7 +4,7 @@ AddCSLuaFile("cl_serversidebodies.lua")
 AddCSLuaFile("sh_bones.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("includes/modules/easings.lua")
-AddCSLuaFile("cl_spawnmenu.lua")
+AddCSLuaFile("sh_spawnmenu.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")
@@ -86,9 +86,9 @@ function GM:Move(ply, cmd)
 		end
 	end
 
-	if cmd:KeyPressed(IN_USE) then
+	--[[if cmd:KeyPressed(IN_USE) then
 		ply:SetMoveType(MOVETYPE_NOCLIP)
-	end
+	end--]]
 
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] > ply:GetRagdollEntity():GetNWInt("BreakPoint") then
@@ -104,6 +104,10 @@ function GM:Move(ply, cmd)
 end 
 function GM:GetFallDamage(ply, speed)
 	EnterRagdoll(ply)
+end
+function GM:PlayerShouldTakeDamage(ply, attacker)
+	EnterRagdoll(ply)
+	return true
 end
 
 function count(o)

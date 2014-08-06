@@ -58,7 +58,8 @@ function meta:CreateRagdoll()
 	Ent.PhysgunDisabled	= false
 	Ent.BoneDamage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
 	Ent.BoneDamage[0] = 0
-	Ent:SetNWInt("BreakPoint", 500)
+	Ent.BreakPoint = 500
+	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 
 	function physics(ent, data, obj)
 		if data.HitEntity == ent then return end
@@ -78,9 +79,9 @@ function meta:CreateRagdoll()
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
 			if bone == 10 then --Head bone
-				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact * 1.5 - 300
+				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact * 1.5 - 300, ent.BreakPoint)
 			else
-				ent.BoneDamage[bone] = ent.BoneDamage[bone] + impact - 300
+				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 300, ent.BreakPoint)
 			end
 			ent:SetNWInt("BoneDamage" .. ent:TranslatePhysBoneToBone(bone), ent.BoneDamage[bone])
 			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + (impact - 300) / 10))

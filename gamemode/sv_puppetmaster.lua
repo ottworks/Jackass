@@ -63,7 +63,7 @@ local function grabinput(ply, cmd)
 		local pos = body:WorldToLocal(head:GetPos()) * 2
 		pos = body:LocalToWorld(pos) - body:GetPos()
 		pos:Normalize()
-		head:ApplyForceCenter(pos * 100)
+		head:ApplyForceCenter(pos * 20)
 	end
 	if cmd:KeyDown(IN_FORWARD) then
 		gut:AddAngleVelocity(Vector(0, 0, 50))

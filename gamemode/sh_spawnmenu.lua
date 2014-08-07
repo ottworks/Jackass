@@ -17,7 +17,7 @@ if SERVER then
 	net.Receive("buy", function(len, ply)
 		local i = net.ReadUInt(16)
 		if tonumber(ply:GetNWInt("money")) > BUYABLES[i].price then
-			ply:SetNWInt(ply:GetNWInt("money") - BUYABLES[i].price)
+			ply:SetNWInt("money", ply:GetNWInt("money") - BUYABLES[i].price)
 			local prop = ents.Create(BUYABLES[i].type)
 			local tr = ply:GetEyeTrace()
 			prop:SetPos(tr.HitPos)

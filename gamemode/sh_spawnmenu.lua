@@ -1,12 +1,5 @@
 if SERVER then
-	BUYABLES = {
-		{
-			type = "prop_physics",
-			model = "models/props_borealis/bluebarrel001.mdl",
-			price = 200
-		},
-	}
-
+	include("sv_buyables.lua")
 	util.AddNetworkString("getbuyables")
 	util.AddNetworkString("buy")
 	net.Receive("getbuyables", function(len, ply)

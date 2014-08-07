@@ -129,6 +129,11 @@ function GM:SetupPlayerVisibility(ply, viewentity)
 	end
 end
 
+function GM:PlayerFootstep(ply)
+	return IsValid(ply:GetRagdollEntity())
+end
+
+
 local player = FindMetaTable("Player")
 function player:GetShootPos()
 	local pos = self:GetPos() + Vector(0, 0, 64)

@@ -19,6 +19,9 @@ function ExitRagdoll(ply, cmd)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
 	ply:GetRagdollEntity():SetRenderBones(false)
+	timer.Simple(0, function()
+		ply:SetPos(ply:GetPos() - Vector(0, 0, 10))
+	end)
 	timer.Simple(0.1, function()
 		if IsValid(ply:GetRagdollEntity()) then
 			local ragpos = ply:GetRagdollEntity():GetPos()
@@ -55,10 +58,13 @@ function EnterRagdoll(ply, cmd)
 	net.Start("stunt_begin")
 	net.Send(ply)
 	ply:CreateRagdoll()
-	ply:SetMoveType(MOVETYPE_NONE)
-	ply:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-	ply:SetNoDraw(true)
-	timer.Create("ragcreate", 0.1, 0, function()
+	ply:SetPos(ply:GetPos() + Vector(0, 0, 10))
+	timer.Simple(0, function()
+		ply:SetMoveType(MOVETYPE_NONE)
+		ply:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+		ply:SetNoDraw(true)
+	end)
+	timer.Create("ragcreate", 0.05, 0, function()
 		if IsValid(ply:GetRagdollEntity()) then
 			ply:GetRagdollEntity():SetRenderBones(true)
 			timer.Destroy("ragcreate")
@@ -71,7 +77,7 @@ util.AddNetworkString("stunt_begin")
 
 function GM:PlayerLoadout(ply)
 	ply:SetModel("models/player/Group02/male_02.mdl")
-	ply:GodEnable()
+	--ply:GodEnable()
 end
 function GM:Move(ply, cmd)
 	if cmd:KeyReleased(IN_JUMP) then
@@ -106,8 +112,9 @@ function GM:GetFallDamage(ply, speed)
 	EnterRagdoll(ply)
 end
 function GM:PlayerShouldTakeDamage(ply, attacker)
-	EnterRagdoll(ply)
-	return true
+	if not IsValid(ply:GetRagdollEntity()) then
+		EnterRagdoll(ply)
+	end
 end
 
 function count(o)

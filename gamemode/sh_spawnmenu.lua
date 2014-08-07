@@ -1,7 +1,7 @@
 if SERVER then
 	BUYABLES = {
 		{
-			type = "prop",
+			type = "prop_physics",
 			model = "models/props_borealis/bluebarrel001.mdl",
 			price = 200
 		},
@@ -15,7 +15,32 @@ if SERVER then
 		net.Send(ply)
 	end)
 	net.Receive("buy", function(len, ply)
-		
+		local i = net.ReadUInt(16)
+		if tonumber(ply:GetNWInt("money")) > BUYABLES[i].price then
+			ply:SetNWInt(ply:GetNWInt("money") - BUYABLES[i].price)
+			local prop = ents.Create(BUYABLES[i].type)
+			local tr = ply:GetEyeTrace()
+			prop:SetPos(tr.HitPos)
+			prop:SetModel(BUYABLES[i].model)
+			prop:Spawn()
+			prop:Activate()
+			-- Taken from Sandbox
+			-- Attempt to move the object so it sits flush
+			-- We could do a TraceEntity instead of doing all 
+			-- of this - but it feels off after the old way
+
+			local vFlushPoint = tr.HitPos - ( tr.HitNormal * 512 )	-- Find a point that is definitely out of the object in the direction of the floor
+				vFlushPoint = prop:NearestPoint( vFlushPoint )			-- Find the nearest point inside the object to that point
+				vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
+				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
+			prop:SetPos(vFlushPoint)
+
+			timer.Simple(60 * 10, function()
+				if IsValid(prop) then
+					prop:Remove()
+				end
+			end)
+		end
 	end)
 
 end
@@ -59,9 +84,14 @@ if CLIENT then
 		grid:SetColWide(64)
 		grid:SetRowHeight(64)
 		for i = 1, #BUYABLES do
+			local mdl = BUYABLES[i].model
+			local rev = string.reverse(string.sub(mdl, 1, -5))
+			local s = string.find(rev, "/")
+			local nick = string.reverse(string.sub(rev, 1, s - 1))
 			local but = vgui.Create( "SpawnIcon" )
 			but:SetSize(64, 64)
-			but:SetModel(BUYABLES[i].model)
+			but:SetModel(mdl)
+			but:SetToolTip("$" .. BUYABLES[i].price .. ": " .. nick)
 			but.DoClick = function()
 				net.Start("buy")
 					net.WriteUInt(i, 16)

@@ -338,3 +338,10 @@ BUYABLES = {
 		price = 100
 	}
 }
+ACCESSORIES = {
+	{
+		type = "prop_physics",
+		model = "models/props_c17/oildrum001_explosive.mdl",
+		price = 1000,
+	}
+}

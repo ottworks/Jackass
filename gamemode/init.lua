@@ -20,9 +20,6 @@ function ExitRagdoll(ply, cmd)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
 	ply:GetRagdollEntity():SetRenderBones(false)
-	timer.Simple(0, function()
-		ply:SetPos(ply:GetPos() - Vector(0, 0, 10))
-	end)
 	timer.Simple(0.1, function()
 		if IsValid(ply:GetRagdollEntity()) then
 			local ragpos = ply:GetRagdollEntity():GetPos()
@@ -59,7 +56,7 @@ function EnterRagdoll(ply, cmd)
 	net.Start("stunt_begin")
 	net.Send(ply)
 	ply:CreateRagdoll()
-	ply:SetPos(ply:GetPos() + Vector(0, 0, 10))
+	--ply:SetPos(ply:GetPos() + Vector(0, 0, 10))
 	timer.Simple(0, function()
 		ply:SetMoveType(MOVETYPE_NONE)
 		ply:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
@@ -132,7 +129,8 @@ function GM:SetupPlayerVisibility(ply, viewentity)
 end
 
 function GM:PlayerFootstep(ply)
-	return IsValid(ply:GetRagdollEntity())
+	--return IsValid(ply:GetRagdollEntity())
+	return false
 end
 
 

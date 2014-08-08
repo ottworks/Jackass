@@ -9,3 +9,7 @@ include("sh_spawnmenu.lua")
 function GM:Initialize()
 
 end 
+
+function GM:PlayerFootstep(ply)
+	return IsValid(ply:GetRagdollEntity())
+end

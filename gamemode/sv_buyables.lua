@@ -83,7 +83,8 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_basket001.mdl",
-		price = 100
+		price = 100,
+		material = "ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/cargo_container01b.mdl",

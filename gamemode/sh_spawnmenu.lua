@@ -17,6 +17,9 @@ if SERVER then
 			prop:SetModel(BUYABLES[i].model)
 			prop:Spawn()
 			prop:Activate()
+
+			local offset = BUYABLES[i].offset or Angle()
+			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
 			-- Taken from Sandbox
 			-- Attempt to move the object so it sits flush
 			-- We could do a TraceEntity instead of doing all 
@@ -27,8 +30,8 @@ if SERVER then
 				vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
 				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
 			prop:SetPos(vFlushPoint)
-			local offset = BUYABLES[i].offset or Angle()
-			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
+			
+			
 
 			if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
 				prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)

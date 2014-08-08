@@ -285,5 +285,55 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_c17/FurnitureDresser001a.mdl",
 		price = 150
-	},
+	}, {
+		type = "prop_physics",
+		model = "models/props_wasteland/interior_fence002d.mdl",
+		price = 200
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/construct/concrete_pipe01.mdl",
+		price = 300,
+		offset = Angle(90, 0, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/construct/concrete_barrier00.mdl",
+		price = 250
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/construct/concrete_barrier01.mdl",
+		price = 250
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/misc/small_ramp.mdl",
+		price = 1000,
+		offset = Angle(0, 180, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/misc/iron_beam1.mdl",
+		price = 50,
+		offset = Angle(90, 0, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/misc/iron_beam2.mdl",
+		price = 100,
+		offset = Angle(90, 0, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/misc/iron_beam3.mdl",
+		price = 250,
+		offset = Angle(90, 0, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_phx/misc/iron_beam4.mdl",
+		price = 500,
+		offset = Angle(90, 0, 0)
+	}, {
+		type = "prop_physics",
+		model = "models/props_bts/hanging_stair_128.mdl",
+		price = 500
+	}, {
+		type = "prop_physics",
+		model = "models/props/de_vertigo/stairsupport_tall.mdl",
+		price = 100
+	}
 }

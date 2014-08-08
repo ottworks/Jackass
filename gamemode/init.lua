@@ -32,7 +32,7 @@ function ExitRagdoll(ply, cmd)
 				tr.maxs = Vector(16, 16, 72)
 				tr.output = trace
 				tr.mask = MASK_PLAYERSOLID
-			for i = 1, 20 do
+			for i = 1, 25 do
 				util.TraceHull(tr)
 				if trace.Hit then
 					local rand = Vector(math.random(-48, 48), math.random(-48, 48), math.random(-48, 48))

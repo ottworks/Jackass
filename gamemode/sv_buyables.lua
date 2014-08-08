@@ -51,12 +51,12 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart002.mdl",
 		price = 150,
-		material = "gmod_ice"
+		material = "ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart001.mdl",
 		price = 250,
-		material = "gmod_ice"
+		material = "ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/wood_fence02a.mdl",

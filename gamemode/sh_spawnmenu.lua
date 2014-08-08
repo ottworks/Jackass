@@ -72,6 +72,9 @@ if CLIENT then
 		spawnmenu:SetVisible(true)
 		net.Start("getbuyables")
 		net.SendToServer()
+		if grid then
+			grid:Remove()
+		end
 		grid = vgui.Create("DGrid", scroller)
 		grid:SetCols(10)
 		grid:SetColWide(64)

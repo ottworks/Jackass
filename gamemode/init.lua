@@ -59,7 +59,7 @@ function EnterRagdoll(ply, cmd)
 	--ply:SetPos(ply:GetPos() + Vector(0, 0, 10))
 	timer.Simple(0, function()
 		ply:SetMoveType(MOVETYPE_NONE)
-		ply:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+		ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 		ply:SetNoDraw(true)
 	end)
 	timer.Create("ragcreate", 0.05, 0, function()
@@ -128,11 +128,13 @@ function GM:SetupPlayerVisibility(ply, viewentity)
 	end
 end
 
-function GM:PlayerFootstep(ply)
-	--return IsValid(ply:GetRagdollEntity())
-	return false
+function playerphys(ply, coldata, collider)
+	print("bonk")
 end
 
+function GM:PlayerInitialSpawn(ply)
+	ply:AddCallback("PhysicsCollide", playerphys)
+end
 
 local player = FindMetaTable("Player")
 function player:GetShootPos()

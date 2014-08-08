@@ -28,6 +28,10 @@ if SERVER then
 				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
 			prop:SetPos(vFlushPoint)
 
+			if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
+				prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)
+			end
+
 			timer.Simple(60 * 10, function()
 				if IsValid(prop) then
 					prop:Remove()

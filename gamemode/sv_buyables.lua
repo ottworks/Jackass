@@ -5,10 +5,6 @@ BUYABLES = {
 		price = 200
 	}, {
 		type = "prop_physics",
-		model = "models/props_borealis/bluebarrel001.mdl",
-		price = 200
-	}, {
-		type = "prop_physics",
 		model = "models/props_c17/oildrum001.mdl",
 		price = 200
 	}, {
@@ -54,11 +50,13 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart002.mdl",
-		price = 150
+		price = 150,
+		material = "gmod_ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart001.mdl",
-		price = 250
+		price = 250,
+		material = "gmod_ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/wood_fence02a.mdl",

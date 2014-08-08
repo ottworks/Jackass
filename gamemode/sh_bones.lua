@@ -118,7 +118,7 @@ if CLIENT then
 				render.DrawBeam(pos, pos2, size * 0.2, 0, 1, Color(255, 255 - (damage / breakpoint) * 255, 255 - (damage / breakpoint) * 255))
 			end
 			local pos, ang = LocalToWorld(Vector(3.7, -1.3, 0), Angle(0, -90, -90), ply:GetBonePosition(6))
-			local damage = ply:GetNWInt("BoneDamage6")
+			local damage = ply:GetNWInt("BoneDamage10")
 			render.ModelMaterialOverride(skullmat)
 				model:SetRenderOrigin( pos );
 				model:SetRenderAngles( ang );

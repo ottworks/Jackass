@@ -83,7 +83,7 @@ function meta:CreateRagdoll()
 			else
 				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 200, ent.BreakPoint)
 			end
-			ent:SetNWInt("BoneDamage" .. ent:TranslatePhysBoneToBone(bone), ent.BoneDamage[bone])
+			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
 			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + (impact - 200) / 10))
 		end
 	end

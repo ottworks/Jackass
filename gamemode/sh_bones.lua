@@ -99,13 +99,14 @@ if CLIENT then
 			end
 			local ply = skeletons[i]
 			local breakpoint = ply:GetNWInt("BreakPoint")
-			for k=0, ply:GetBoneCount()-1 do
-				if ( ply:GetBoneParent( k ) <= 0 ) then continue end
-				if ( !ply:BoneHasFlag( k, BONE_USED_BY_HITBOX ) ) then continue end
-				local pos, ang = ply:GetBonePosition(k)
-				local pos2 = ply:GetBonePosition(ply:GetBoneParent(k))
+			for k=0, ply:GetNWInt("physcount")-1 do
+				local bone = ply:TranslatePhysBoneToBone(k)
+				if ( ply:GetBoneParent( bone ) <= 0 ) then continue end
+				--if ( !ply:BoneHasFlag( bone, BONE_USED_BY_HITBOX ) ) then continue end
+				local pos, ang = ply:GetBonePosition(bone)
+				local pos2 = ply:GetBonePosition(ply:GetBoneParent(bone))
 
-				local size = ply:BoneLength(k)
+				local size = ply:BoneLength(bone)
 				if size > 10 then 
 					render.SetMaterial(bonemat) 
 				else 

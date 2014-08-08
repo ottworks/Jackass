@@ -67,6 +67,7 @@ function EnterRagdoll(ply, cmd)
 	timer.Create("ragcreate", 0.05, 0, function()
 		if IsValid(ply:GetRagdollEntity()) then
 			ply:GetRagdollEntity():SetRenderBones(true)
+			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())
 			timer.Destroy("ragcreate")
 		end
 	end)

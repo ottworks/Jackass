@@ -19,12 +19,14 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_c17/FurnitureBathtub001a.mdl",
 		price = 250,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_interiors/BathTub01a.mdl",
 		price = 250,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_c17/FurnitureTable002a.mdl",
@@ -48,18 +50,19 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/controlroom_desk001b.mdl",
-		price = 200,
-		offset = Angle(0, 180, 0)
+		price = 200
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart002.mdl",
 		price = 150,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart001.mdl",
 		price = 250,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/wood_fence02a.mdl",
@@ -84,7 +87,8 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_basket001.mdl",
 		price = 100,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/cargo_container01b.mdl",
@@ -105,7 +109,8 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_junk/PushCart01a.mdl",
 		price = 200,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_junk/wood_pallet001a.mdl",
@@ -134,7 +139,8 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_junk/TrashDumpster02.mdl",
 		price = 3500,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/coolingtank02.mdl",
@@ -147,32 +153,38 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_vehicles/car004a_physics.mdl",
 		price = 300,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_vehicles/car005a_physics.mdl",
 		price = 300,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_vehicles/car002a_physics.mdl",
 		price = 300,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_vehicles/trailer001a.mdl",
 		price = 2000,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_vehicles/wagon001a_phy.mdl",
 		price = 500,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_vehicles/van001a_physics.mdl",
 		price = 300,
-		material = "ice"
+		material = "ice",
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_canal/boat002b.mdl",

@@ -28,7 +28,7 @@ if SERVER then
 				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
 			prop:SetPos(vFlushPoint)
 			local offset = BUYABLES[i].offset or Angle()
-			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y, offset.r))
+			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
 
 			if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
 				prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)

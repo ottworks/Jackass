@@ -12,6 +12,7 @@ include("sv_puppetmaster.lua")
 include("sv_sql_database.lua")
 
 resource.AddFile("sound/jackass/chaching.wav")
+resource.AddFile("resource/321impact.ttf")
 
 local failed = false
 

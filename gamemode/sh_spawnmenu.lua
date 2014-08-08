@@ -27,7 +27,7 @@ if SERVER then
 				vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
 				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
 			prop:SetPos(vFlushPoint)
-			prop:SetAngles(Angle(0, ply:EyeAngles().y, 0))
+			prop:SetAngles(Angle(0, ply:EyeAngles().y, 0) + BUYABLES[i].offset or Angle())
 
 			if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
 				prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)

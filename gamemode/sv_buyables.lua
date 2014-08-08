@@ -46,7 +46,8 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/controlroom_desk001b.mdl",
-		price = 200
+		price = 200,
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_wasteland/laundry_cart002.mdl",

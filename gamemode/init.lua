@@ -128,8 +128,12 @@ function GM:SetupPlayerVisibility(ply, viewentity)
 	end
 end
 
-function playerphys(ply, coldata, collider)
-	print("bonk")
+function playerphys(ply, data, collider)
+	if data.HitEntity == ent then return end
+	local impact = ((data.TheirOldVelocity + data.OurOldVelocity) * data.HitNormal):Distance(Vector())
+	if impact > 300 then
+		EnterRagdoll(ply)
+	end
 end
 
 function GM:PlayerInitialSpawn(ply)

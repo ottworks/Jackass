@@ -68,7 +68,7 @@ function meta:CreateRagdoll()
 		if impact > 100 then
 			if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
 				--WINDOW BREAK
-				data.HitEntity:Break()
+				
 			end
 		end
 		if impact > 200 then

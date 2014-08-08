@@ -329,11 +329,12 @@ BUYABLES = {
 		offset = Angle(90, 0, 0)
 	}, {
 		type = "prop_physics",
-		model = "models/props_bts/hanging_stair_128.mdl",
-		price = 500
+		model = "models/hanging_stair_128.mdl",
+		price = 500,
+		offset = Angle(0, 90, 0)
 	}, {
 		type = "prop_physics",
-		model = "models/props/de_vertigo/stairsupport_tall.mdl",
+		model = "models/stairsupport_tall.mdl",
 		price = 100
 	}
 }

@@ -58,7 +58,7 @@ function meta:CreateRagdoll()
 	Ent.PhysgunDisabled	= false
 	Ent.BoneDamage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
 	Ent.BoneDamage[0] = 0
-	Ent.BreakPoint = 500
+	Ent.BreakPoint = 1000
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 
 	function physics(ent, data, obj)
@@ -84,7 +84,7 @@ function meta:CreateRagdoll()
 				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 200, ent.BreakPoint)
 			end
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + (impact - 200) / 10))
+			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + math.min((impact - 200), ent.BreakPoint - ent.BoneDamage[bone])))
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

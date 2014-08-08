@@ -15,6 +15,7 @@ resource.AddFile("sound/jackass/chaching.wav")
 resource.AddFile("resource/321impact.ttf")
 resource.AddFile("models/stairsupport_tall.mdl")
 resource.AddFile("models/hanging_stair_128.mdl")
+resource.AddFile("models/stunt_helmet.mdl")
 
 local failed = false
 

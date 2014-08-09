@@ -78,13 +78,13 @@ function meta:CreateRagdoll()
 			trace.ignoreworld = true
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
-			if bone == 10 then --Head bone
+			--[[if bone == 10 then --Head bone
 				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact * 1.5 - 300, ent.BreakPoint)
-			else
+			else--]]
 				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 300, ent.BreakPoint)
-			end
+			--end
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + math.min((impact - 300), ent.BreakPoint - ent.BoneDamage[bone])))
+			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + math.min((impact - 300) / 10, (ent.BreakPoint - ent.BoneDamage[bone]) / 10) * (1 + ent:GetNWInt("profits") / 100)))
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

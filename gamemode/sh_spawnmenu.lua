@@ -46,7 +46,16 @@ if SERVER then
 
 			timer.Simple(60 * 5, function()
 				if IsValid(prop) then
-					prop:Remove()
+					local i = 0
+					timer.Create("Decay" .. prop:EntIndex(), 1, 5, function()
+						if IsValid(prop) then
+							prop:SetColor(Color(255, 255, 255, 255 - i * 50))
+							i = i + 1
+							if i == 4 then
+								prop:Remove()
+							end
+						end
+					end)
 				end
 			end)
 		end

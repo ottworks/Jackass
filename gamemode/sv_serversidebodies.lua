@@ -84,7 +84,7 @@ function meta:CreateRagdoll()
 				ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 300, ent.BreakPoint)
 			--end
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + math.min((impact - 300) / 10, (ent.BreakPoint - ent.BoneDamage[bone]) / 10) * (1 + ent:GetNWInt("profits") / 1000)))
+			ent:SetNWInt("profits", math.floor(ent:GetNWInt("profits") + math.min((impact - 300) / 10, (ent.BreakPoint - ent.BoneDamage[bone]) / 10) ^ 1.1))
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

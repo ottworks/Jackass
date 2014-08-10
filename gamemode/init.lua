@@ -5,6 +5,7 @@ AddCSLuaFile("sh_bones.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("includes/modules/easings.lua")
 AddCSLuaFile("sh_spawnmenu.lua")
+AddCSLuaFile("sh_buyables.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")
@@ -119,6 +120,17 @@ function GM:PlayerShouldTakeDamage(ply, attacker)
 		EnterRagdoll(ply)
 	end
 end
+function GM:EntityTakeDamage(t, dinfo)
+	if t:IsRagdoll() then
+		if dinfo:IsExplosionDamage() then
+			for bone = 0, t:GetPhysicsObjectCount() - 1 do
+				t.BoneDamage[bone] = math.min(t.BoneDamage[bone] + dinfo:GetDamage(), t.BreakPoint)
+				t:SetNWInt("BoneDamage" .. bone, t.BoneDamage[bone])
+				t:SetNWInt("profits", math.floor(t:GetNWInt("profits") + math.min(dinfo:GetDamage(), (t.BreakPoint - t.BoneDamage[bone])) ^ 1.1))
+			end
+		end
+	end
+end
 
 function count(o)
 	local a = 0
@@ -134,7 +146,8 @@ end
 
 function playerphys(ply, data, collider)
 	if data.HitEntity == ent then return end
-	local impact = ((data.TheirOldVelocity + data.OurOldVelocity) * data.HitNormal):Distance(Vector())
+	local a = (data.TheirOldVelocity - data.OurOldVelocity)
+	local impact = (a * data.HitNormal):Distance(Vector())
 	if impact > 300 then
 		EnterRagdoll(ply)
 	end

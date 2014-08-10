@@ -126,7 +126,7 @@ function GM:EntityTakeDamage(t, dinfo)
 			for bone = 0, t:GetPhysicsObjectCount() - 1 do
 				t.BoneDamage[bone] = math.min(t.BoneDamage[bone] + dinfo:GetDamage(), t.BreakPoint)
 				t:SetNWInt("BoneDamage" .. bone, t.BoneDamage[bone])
-				t:SetNWInt("profits", math.floor(t:GetNWInt("profits") + dinfo:GetDamage()))
+				t:SetNWInt("profits", t:GetNWInt("profits") + dinfo:GetDamage())
 			end
 		end
 	end

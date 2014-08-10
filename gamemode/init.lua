@@ -124,9 +124,10 @@ function GM:EntityTakeDamage(t, dinfo)
 	if t:IsRagdoll() then
 		if dinfo:IsExplosionDamage() then
 			for bone = 0, t:GetPhysicsObjectCount() - 1 do
-				t.BoneDamage[bone] = math.min(t.BoneDamage[bone] + dinfo:GetDamage(), t.BreakPoint)
+				dmg = math.floor(dinfo:GetDamage())
+				t.BoneDamage[bone] = math.min(t.BoneDamage[bone] + dmg, t.BreakPoint)
 				t:SetNWInt("BoneDamage" .. bone, t.BoneDamage[bone])
-				t:SetNWInt("profits", t:GetNWInt("profits") + dinfo:GetDamage())
+				t:SetNWInt("profits", t:GetNWInt("profits") + dmg)
 			end
 		end
 	end

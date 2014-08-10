@@ -1,4 +1,4 @@
-"armageddon"
+"jackass"
 {
 	"base"		"base"
 	"title"		"Jackass"

@@ -192,7 +192,8 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_canal/boat002b.mdl",
-		price = 2000
+		price = 2000,
+		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_c17/statue_horse.mdl",
@@ -293,15 +294,17 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/props_phx/construct/concrete_pipe01.mdl",
 		price = 300,
-		offset = Angle(90, 0, 0)
+		offset = Angle(90, 180, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_phx/construct/concrete_barrier00.mdl",
-		price = 250
+		price = 250,
+		offset = Angle(0, 90, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_phx/construct/concrete_barrier01.mdl",
-		price = 250
+		price = 250,
+		offset = Angle(0, 90, 0)
 	}, {
 		type = "prop_physics",
 		model = "models/props_phx/misc/small_ramp.mdl",
@@ -336,12 +339,34 @@ BUYABLES = {
 		type = "prop_physics",
 		model = "models/stairsupport_tall.mdl",
 		price = 100
-	}
-}
-ACCESSORIES = {
-	{
+	}, {
 		type = "prop_physics",
 		model = "models/props_c17/oildrum001_explosive.mdl",
 		price = 1000,
+	},
+}
+table.sort(BUYABLES, function(a, b)
+	local mdl = a.model
+	local rev = string.reverse(string.sub(mdl, 1, -5))
+	local s = string.find(rev, "/")
+	local nicka = string.reverse(string.sub(rev, 1, s - 1))
+	local mdl = b.model
+	local rev = string.reverse(string.sub(mdl, 1, -5))
+	local s = string.find(rev, "/")
+	local nickb = string.reverse(string.sub(rev, 1, s - 1))
+	return nicka < nickb
+end)
+ACCESSORIES = {
+	{
+		type = "prop_physics",
+		model = "models/freeman/camera.mdl",
+		price = 1,
+	}, {
+		type = "prop_physics",
+		model = "models/stunt_helmet.mdl",
+		price = 1,
 	}
 }
+table.sort(ACCESSORIES, function(a, b)
+	return a.model > b.model
+end)

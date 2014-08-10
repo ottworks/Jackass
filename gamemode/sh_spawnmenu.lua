@@ -1,5 +1,4 @@
 if SERVER then
-	include("sv_buyables.lua")
 	util.AddNetworkString("getbuyables")
 	util.AddNetworkString("buy")
 	util.AddNetworkString("getaccessories")
@@ -16,112 +15,62 @@ if SERVER then
 	end)
 	net.Receive("buy", function(len, ply)
 		local i = net.ReadUInt(16)
+		local t = net.ReadUInt(4)
 		if tonumber(ply:GetNWInt("money")) > BUYABLES[i].price then
 			ply:SetNWInt("money", ply:GetNWInt("money") - BUYABLES[i].price)
-			local prop = ents.Create(BUYABLES[i].type)
-			local tr = ply:GetEyeTrace()
-			prop:SetPos(tr.HitPos)
-			prop:SetModel(BUYABLES[i].model)
-			prop:Spawn()
-			prop:Activate()
+			if t == 0 then
+				if BUYABLES[i].type == "prop_physics" then
+					local prop = ents.Create(BUYABLES[i].type)
+					local tr = ply:GetEyeTrace()
+					prop:SetPos(tr.HitPos)
+					prop:SetModel(BUYABLES[i].model)
+					prop:Spawn()
+					prop:Activate()
 
-			local offset = BUYABLES[i].offset or Angle()
-			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
-			-- Taken from Sandbox
-			-- Attempt to move the object so it sits flush
-			-- We could do a TraceEntity instead of doing all 
-			-- of this - but it feels off after the old way
+					local offset = BUYABLES[i].offset or Angle()
+					prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
+					-- Taken from Sandbox
+					-- Attempt to move the object so it sits flush
+					-- We could do a TraceEntity instead of doing all 
+					-- of this - but it feels off after the old way
 
-			local vFlushPoint = tr.HitPos - ( tr.HitNormal * 512 )	-- Find a point that is definitely out of the object in the direction of the floor
-				vFlushPoint = prop:NearestPoint( vFlushPoint )			-- Find the nearest point inside the object to that point
-				vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
-				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
-			prop:SetPos(vFlushPoint)
-			
-			
+					local vFlushPoint = tr.HitPos - ( tr.HitNormal * 512 )	-- Find a point that is definitely out of the object in the direction of the floor
+						vFlushPoint = prop:NearestPoint( vFlushPoint )			-- Find the nearest point inside the object to that point
+						vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
+						vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
+					prop:SetPos(vFlushPoint)
+					
+					
 
-			if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
-				prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)
-			end
+					if IsValid(prop:GetPhysicsObject()) and BUYABLES[i].material then
+						prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)
+					end
 
-			timer.Simple(60 * 5, function()
-				if IsValid(prop) then
-					local i = 0
-					timer.Create("Decay" .. prop:EntIndex(), 1, 5, function()
+					timer.Simple(60 * 5, function()
 						if IsValid(prop) then
-							prop:SetColor(Color(255, 255, 255, 255 - i * 50))
-							i = i + 1
-							if i == 4 then
-								prop:Remove()
-							end
+							local i = 1
+							timer.Create("Decay" .. prop:EntIndex(), 1, 5, function()
+								if IsValid(prop) then
+									prop:SetRenderMode(RENDERGROUP_TRANSLUCENT)
+									prop:SetColor(Color(255, 255, 255, 255 - i * 50))
+									i = i + 1
+									if i == 4 then
+										prop:Remove()
+									end
+								end
+							end)
 						end
 					end)
 				end
-			end)
-		end
-	end)
+			elseif t == 1 then
 
-	net.Receive("buy2", function(len, ply)
-		local i = net.ReadUInt(16)
-		if tonumber(ply:GetNWInt("money")) > ACCESSORIES[i].price then
-			ply:SetNWInt("money", ply:GetNWInt("money") - ACCESSORIES[i].price)
-			local prop = ents.Create(ACCESSORIES[i].type)
-			local tr = ply:GetEyeTrace()
-			prop:SetPos(tr.HitPos)
-			prop:SetModel(ACCESSORIES[i].model)
-			prop:Spawn()
-			prop:Activate()
-
-			local offset = ACCESSORIES[i].offset or Angle()
-			prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
-			-- Taken from Sandbox
-			-- Attempt to move the object so it sits flush
-			-- We could do a TraceEntity instead of doing all 
-			-- of this - but it feels off after the old way
-
-			local vFlushPoint = tr.HitPos - ( tr.HitNormal * 512 )	-- Find a point that is definitely out of the object in the direction of the floor
-				vFlushPoint = prop:NearestPoint( vFlushPoint )			-- Find the nearest point inside the object to that point
-				vFlushPoint = prop:GetPos() - vFlushPoint				-- Get the difference
-				vFlushPoint = tr.HitPos + vFlushPoint					-- Add it to our target pos
-			prop:SetPos(vFlushPoint)
-			
-			
-
-			if IsValid(prop:GetPhysicsObject()) and ACCESSORIES[i].material then
-				prop:GetPhysicsObject():SetMaterial(ACCESSORIES[i].material)
 			end
-
-			timer.Simple(60 * 5, function()
-				if IsValid(prop) then
-					prop:Remove()
-				end
-			end)
 		end
 	end)
-
 end
 
 
 if CLIENT then
-
-	net.Receive("getbuyables", function()
-		BUYABLES = net.ReadTable() or {}
-		if grid then
-			grid = vgui.Create("DGrid", scroller)
-			grid:SetCols(10)
-			grid:SetColWide(64)
-			grid:SetRowHeight(64)
-		end
-	end)
-	net.Receive("getaccessories", function()
-		ACCESSORIES = net.ReadTable() or {}
-		if grid2 then
-			grid2 = vgui.Create("DGrid", scroller)
-			grid2:SetCols(10)
-			grid2:SetColWide(64)
-			grid2:SetRowHeight(64)
-		end
-	end)
 	BUYABLES = BUYABLES or {}
 	ACCESSORIES = ACCESSORIES or {}
 	local spawnmenu = vgui.Create("DPropertySheet")
@@ -133,22 +82,17 @@ if CLIENT then
 		scroller:SetSize(math.floor(ScrW() / 3 / 64) * 64 + 15, math.floor(ScrH() / 3 / 64) * 64 - 64)
 		scroller:SetPos(5, 29)
 		local grid = vgui.Create("DGrid", scroller)
-		grid:SetCols(10)
+		grid:SetCols(math.floor(ScrW() / 3 / 64))
 		grid:SetColWide(64)
 		grid:SetRowHeight(64)
-		--grid:SetPos(5, 29)
-		net.Start("getbuyables")
-		net.SendToServer()
 		local function open()
 			gui.EnableScreenClicker(true)
 			spawnmenu:SetVisible(true)
-			net.Start("getbuyables")
-			net.SendToServer()
 			if grid then
 				grid:Remove()
 			end
 			grid = vgui.Create("DGrid", scroller)
-			grid:SetCols(10)
+			grid:SetCols(math.floor(ScrW() / 3 / 64))
 			grid:SetColWide(64)
 			grid:SetRowHeight(64)
 			for i = 1, #BUYABLES do
@@ -163,6 +107,7 @@ if CLIENT then
 				but.DoClick = function()
 					net.Start("buy")
 						net.WriteUInt(i, 16)
+						net.WriteUInt(0, 4)
 					net.SendToServer()
 				end
 				grid:AddItem( but )
@@ -174,19 +119,15 @@ if CLIENT then
 		scroller2:SetSize(math.floor(ScrW() / 3 / 64) * 64 + 15, math.floor(ScrH() / 3 / 64) * 64 - 64)
 		scroller2:SetPos(5, 29)
 		local grid2 = vgui.Create("DGrid", scroller2)
-		grid2:SetCols(10)
+		grid2:SetCols(math.floor(ScrW() / 3 / 64))
 		grid2:SetColWide(64)
 		grid2:SetRowHeight(64)
-		net.Start("getaccessories")
-		net.SendToServer()
 		local function open2()
-			net.Start("getaccessories")
-			net.SendToServer()
 			if grid2 then
 				grid2:Remove()
 			end
 			grid2 = vgui.Create("DGrid", scroller2)
-			grid2:SetCols(10)
+			grid2:SetCols(math.floor(ScrW() / 3 / 64))
 			grid2:SetColWide(64)
 			grid2:SetRowHeight(64)
 			for i = 1, #ACCESSORIES do
@@ -199,7 +140,7 @@ if CLIENT then
 				but:SetModel(mdl)
 				but:SetToolTip("$" .. ACCESSORIES[i].price .. ": " .. nick)
 				but.DoClick = function()
-					net.Start("buy2")
+					net.Start("buy")
 						net.WriteUInt(i, 16)
 					net.SendToServer()
 				end

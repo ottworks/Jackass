@@ -360,7 +360,7 @@ ACCESSORIES = {
 	{
 		type = "weapon_camera",
 		model = "models/freeman/camera.mdl",
-		nick = "Camera"
+		nick = "Camera",
 		price = 1,
 	}, {
 		type = "hat",

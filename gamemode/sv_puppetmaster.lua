@@ -1,3 +1,5 @@
+local weldl, weldr
+
 local function grabinput(ply, cmd)
 	if not IsValid(ply:GetRagdollEntity()) or not ply:Alive() then return end
 	if not IsValid(ply:GetRagdollEntity():GetPhysicsObject()) then return end
@@ -18,7 +20,7 @@ local function grabinput(ply, cmd)
 	local left_knee = body:GetPhysicsObjectNum(12)
 	local left_ankle = body:GetPhysicsObjectNum(13)
 	local right_ankle = body:GetPhysicsObjectNum(14)
-
+	--Tuck
 	if cmd:KeyDown(IN_DUCK) then
 		left_hip_joint:AddAngleVelocity(Vector(0, 0, -100))
 		right_hip_joint:AddAngleVelocity(Vector(0, 0, -100))
@@ -37,7 +39,7 @@ local function grabinput(ply, cmd)
 
 		head:AddAngleVelocity(Vector(0, 0, 100))
 	end
-
+	--Plank
 	if cmd:KeyDown(IN_SPEED) then
 		for i = 1, body:GetPhysicsObjectCount()-1 do
 			local bone = body:GetPhysicsObjectNum(i)
@@ -65,6 +67,7 @@ local function grabinput(ply, cmd)
 		pos:Normalize()
 		head:ApplyForceCenter(pos * 20)
 	end
+	--Rotation
 	if cmd:KeyDown(IN_FORWARD) then
 		gut:AddAngleVelocity(Vector(0, 0, 50))
 	end
@@ -76,6 +79,54 @@ local function grabinput(ply, cmd)
 	end
 	if cmd:KeyDown(IN_MOVERIGHT) then
 		gut:AddAngleVelocity(Vector(50, 0, 0))
+	end
+	--Left Arm
+	if cmd:KeyDown(IN_ATTACK) then
+		left_wrist:ApplyForceCenter(ply:GetAimVector() * 100)
+	end
+	--Right Arm
+	if cmd:KeyDown(IN_ATTACK2) then
+		right_wrist:ApplyForceCenter(ply:GetAimVector() * 100)
+	end
+	--Grab
+	if cmd:KeyDown(IN_USE) then
+		if not weldl then
+			if cmd:KeyDown(IN_ATTACK) then
+				local td = {}
+				td.start = left_wrist:GetPos()
+				td.endpos = left_wrist:GetPos()
+				td.mins = Vector(-5, -5, -5)
+				td.maxs = Vector(5, 5, 5)
+				td.filter = ply:GetRagdollEntity()
+				local tr = util.TraceHull(td)
+				if tr.Hit and tr.Entity then
+					weldl = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 10000, false, false)
+				end
+			end
+		end
+		if not weldr then
+			if cmd:KeyDown(IN_ATTACK2) then
+				local td = {}
+				td.start = right_wrist:GetPos()
+				td.endpos = right_wrist:GetPos()
+				td.mins = Vector(-5, -5, -5)
+				td.maxs = Vector(5, 5, 5)
+				td.filter = ply:GetRagdollEntity()
+				local tr = util.TraceHull(td)
+				if tr.Hit then
+					weldr = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 10000, false, false)
+				end
+			end
+		end
+	else
+		if IsValid(weldl) then
+			weldl:Remove()
+		end
+		weldl = nil
+		if IsValid(weldr) then
+			weldr:Remove()
+		end
+		weldr = nil
 	end
 end
 hook.Add("Move", "puppetinput", grabinput)

@@ -17,8 +17,8 @@ if SERVER then
 		local i = net.ReadUInt(16)
 		local t = net.ReadUInt(4)
 		if tonumber(ply:GetNWInt("money")) > BUYABLES[i].price then
-			ply:SetNWInt("money", ply:GetNWInt("money") - BUYABLES[i].price)
 			if t == 0 then
+				ply:SetNWInt("money", ply:GetNWInt("money") - BUYABLES[i].price)
 				if BUYABLES[i].type == "prop_physics" then
 					local prop = ents.Create(BUYABLES[i].type)
 					local tr = ply:GetEyeTrace()
@@ -63,7 +63,12 @@ if SERVER then
 					end)
 				end
 			elseif t == 1 then
-
+				if ACCESSORIES[i].type == "hat" then
+					if ply:GetNWString("Hat") ~= ACCESSORIES[i].nick then
+						ply:SetNWInt("money", ply:GetNWInt("money") - ACCESSORIES[i].price)
+						ply:SetNWString("Hat", ACCESSORIES[i].nick)
+					end
+				end
 			end
 		end
 	end)
@@ -131,10 +136,13 @@ if CLIENT then
 			grid2:SetColWide(64)
 			grid2:SetRowHeight(64)
 			for i = 1, #ACCESSORIES do
-				local mdl = ACCESSORIES[i].model
-				local rev = string.reverse(string.sub(mdl, 1, -5))
-				local s = string.find(rev, "/")
-				local nick = string.reverse(string.sub(rev, 1, s - 1))
+				local nick
+				if not ACCESSORIES[i].nick then
+					local mdl = ACCESSORIES[i].model
+					local rev = string.reverse(string.sub(mdl, 1, -5))
+					local s = string.find(rev, "/")
+					local nick = string.reverse(string.sub(rev, 1, s - 1))
+				else nick = ACCESSORIES[i].nick end
 				local but = vgui.Create( "SpawnIcon" )
 				but:SetSize(64, 64)
 				but:SetModel(mdl)

@@ -358,12 +358,14 @@ table.sort(BUYABLES, function(a, b)
 end)
 ACCESSORIES = {
 	{
-		type = "prop_physics",
+		type = "weapon_camera",
 		model = "models/freeman/camera.mdl",
+		nick = "Camera"
 		price = 1,
 	}, {
-		type = "prop_physics",
+		type = "hat",
 		model = "models/stunt_helmet.mdl",
+		nick = "Stunt Helmet",
 		price = 1,
 	}
 }

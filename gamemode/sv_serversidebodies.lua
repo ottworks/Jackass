@@ -63,7 +63,7 @@ function meta:CreateRagdoll()
 
 	function physics(ent, data, obj)
 		if data.HitEntity == ent then return end
-		local impact = (data.OurOldVelocity * data.HitNormal):Distance(Vector())
+		local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
 		impact = math.floor(impact)
 		if impact > 100 then
 			if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then

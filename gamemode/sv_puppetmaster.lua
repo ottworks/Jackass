@@ -82,11 +82,11 @@ local function grabinput(ply, cmd)
 	end
 	--Left Arm
 	if cmd:KeyDown(IN_ATTACK) then
-		left_wrist:ApplyForceCenter(ply:GetAimVector() * 100)
+		left_wrist:ApplyForceCenter(ply:GetAimVector() * 200)
 	end
 	--Right Arm
 	if cmd:KeyDown(IN_ATTACK2) then
-		right_wrist:ApplyForceCenter(ply:GetAimVector() * 100)
+		right_wrist:ApplyForceCenter(ply:GetAimVector() * 200)
 	end
 	--Grab
 	if cmd:KeyDown(IN_USE) then

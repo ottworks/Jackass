@@ -179,6 +179,12 @@ BUYABLES = {
 		offset = Angle(0, 180, 0)
 	}, {
 		type = "prop_physics",
+		model = "models/props_vehicles/wagon001a.mdl",
+		price = 500,
+		material = "ice",
+		offset = Angle(0, 180, 0)
+	}, {
+		type = "prop_physics",
 		model = "models/props_vehicles/van001a.mdl",
 		price = 3000,
 		material = "ice",

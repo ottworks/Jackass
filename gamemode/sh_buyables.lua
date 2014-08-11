@@ -366,7 +366,7 @@ ACCESSORIES = {
 		type = "hat",
 		model = "models/stunt_helmet.mdl",
 		nick = "Stunt Helmet",
-		price = 1,
+		price = 10000,
 	}
 }
 table.sort(ACCESSORIES, function(a, b)

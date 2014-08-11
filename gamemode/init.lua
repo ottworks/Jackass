@@ -102,7 +102,7 @@ function GM:Move(ply, cmd)
 	end--]]
 
 	if IsValid(ply:GetRagdollEntity()) then
-		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") then
+		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") and not ply:GetNWString("Hat") == "Stunt Helmet" then
 			ExitRagdoll(ply, cmd)
 			if not failed then
 				net.Start("stunt_failure")

@@ -150,6 +150,7 @@ if CLIENT then
 				but.DoClick = function()
 					net.Start("buy")
 						net.WriteUInt(i, 16)
+						net.WriteUInt(1, 4)
 					net.SendToServer()
 				end
 				grid2:AddItem( but )

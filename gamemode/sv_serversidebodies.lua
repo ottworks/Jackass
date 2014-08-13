@@ -81,11 +81,12 @@ function meta:CreateRagdoll()
 			if bone == 10 then
 				impact = impact / 2
 			end
-			
 			impact = math.floor(impact)
 			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			ent:SetNWInt("profits", ent:GetNWInt("profits") + impact)
+			if ent.BoneDamage[bone] > ent.BreakPoint / 4 then
+				ent:SetNWInt("profits", ent:GetNWInt("profits") + impact)
+			end
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

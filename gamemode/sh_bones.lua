@@ -129,6 +129,7 @@ if CLIENT then
 					model:SetModelScale(0.8, 0)
 					render.SetColorModulation(1, 1 - (damage / breakpoint), 1 - (damage / breakpoint))
 					model:DrawModel();	
+					render.SetColorModulation(1, 1, 1)
 			render.ModelMaterialOverride()
 		end
 		cam.IgnoreZ(false)

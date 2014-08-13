@@ -1,4 +1,4 @@
-local weldl, weldr
+local weldl, weldr = {}, {}
 
 local function grabinput(ply, cmd)
 	if not IsValid(ply:GetRagdollEntity()) or not ply:Alive() then return end
@@ -90,7 +90,7 @@ local function grabinput(ply, cmd)
 	end
 	--Grab
 	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK) then
-		if not weldl then
+		if not weldl[ply:EntIndex()] then
 			local td = {}
 			td.start = left_wrist:GetPos()
 			td.endpos = left_wrist:GetPos()
@@ -101,17 +101,17 @@ local function grabinput(ply, cmd)
 			local tr = util.TraceHull(td)
 			if tr.Hit then
 				left_wrist:SetPos(tr.HitPos)
-				weldl = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 0, false, false)
+				weldl[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 0, false, false)
 			end
 		end
 	else
-		if IsValid(weldl) then
-			weldl:Remove()
+		if IsValid(weldl[ply:EntIndex()]) then
+			weldl[ply:EntIndex()]:Remove()
 		end
-		weldl = nil
+		weldl[ply:EntIndex()] = nil
 	end
 	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK2) then
-		if not weldr then
+		if not weldr[ply:EntIndex()] then
 			local td = {}
 			td.start = right_wrist:GetPos()
 			td.endpos = right_wrist:GetPos()
@@ -122,14 +122,14 @@ local function grabinput(ply, cmd)
 			local tr = util.TraceHull(td)
 			if tr.Hit then
 				right_wrist:SetPos(tr.HitPos)
-				weldr = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 0, false, false)
+				weldr[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 0, false, false)
 			end
 		end
 	else
-		if IsValid(weldr) then
-			weldr:Remove()
+		if IsValid(weldr[ply:EntIndex()]) then
+			weldr[ply:EntIndex()]:Remove()
 		end
-		weldr = nil
+		weldr[ply:EntIndex()] = nil
 	end
 end
 hook.Add("Move", "puppetinput", grabinput)

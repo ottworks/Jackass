@@ -64,7 +64,6 @@ function meta:CreateRagdoll()
 	function physics(ent, data, obj)
 		if data.HitEntity == ent then return end
 		local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
-		impact = math.floor(impact)
 		if impact > 100 then
 			if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
 				--WINDOW BREAK
@@ -72,16 +71,21 @@ function meta:CreateRagdoll()
 			end
 		end
 		if impact > 300 then
+			impact = impact - 300
 			local trace = {}
 			trace.start = data.HitPos
 			trace.endpos = data.HitPos + data.HitNormal * -5
 			trace.ignoreworld = true
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
-
-			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact - 300, ent.BreakPoint)
+			if bone == 10 then
+				impact = impact / 2
+			end
+			
+			impact = math.floor(impact)
+			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			ent:SetNWInt("profits", ent:GetNWInt("profits") + impact - 300)
+			ent:SetNWInt("profits", ent:GetNWInt("profits") + impact)
 		end
 	end
 	Ent:AddCallback("PhysicsCollide", physics)

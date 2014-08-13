@@ -7,7 +7,7 @@ include("cl_hats.lua")
 function GM:CalcView(ply, pos, ang, fov, nearz, farz)
 	local offset = pos + Angle(0, ang.y, ang.r):Forward() * 20 * math.max((math.abs(ang.p) - 30), 0) / 90 + Vector(0, 0, 12)
 	local ragoffset = IsValid(ply:GetRagdollEntity()) and ply:GetRagdollEntity():GetBonePosition(6) + Vector(0, 0, 12)
-	local view = {}
+	local view = {angles = ang}
 	local tr = {}
 		if IsValid(ply:GetRagdollEntity()) then
 			offset = ragoffset

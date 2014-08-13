@@ -100,7 +100,6 @@ local function grabinput(ply, cmd)
 			td.mask = MASK_SOLID
 			local tr = util.TraceHull(td)
 			if tr.Hit then
-				print(tr.Entity)
 				left_wrist:SetPos(tr.HitPos)
 				weldl = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 0, false, false)
 			end

@@ -89,33 +89,20 @@ local function grabinput(ply, cmd)
 		right_wrist:ApplyForceCenter(ply:GetAimVector() * 200)
 	end
 	--Grab
-	if cmd:KeyDown(IN_USE) then
+	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK) then
 		if not weldl then
-			if cmd:KeyDown(IN_ATTACK) then
-				local td = {}
-				td.start = left_wrist:GetPos()
-				td.endpos = left_wrist:GetPos()
-				td.mins = Vector(-5, -5, -5)
-				td.maxs = Vector(5, 5, 5)
-				td.filter = ply:GetRagdollEntity()
-				local tr = util.TraceHull(td)
-				if tr.Hit and tr.Entity then
-					weldl = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 10000, false, false)
-				end
-			end
-		end
-		if not weldr then
-			if cmd:KeyDown(IN_ATTACK2) then
-				local td = {}
-				td.start = right_wrist:GetPos()
-				td.endpos = right_wrist:GetPos()
-				td.mins = Vector(-5, -5, -5)
-				td.maxs = Vector(5, 5, 5)
-				td.filter = ply:GetRagdollEntity()
-				local tr = util.TraceHull(td)
-				if tr.Hit then
-					weldr = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 10000, false, false)
-				end
+			local td = {}
+			td.start = left_wrist:GetPos()
+			td.endpos = left_wrist:GetPos()
+			td.mins = Vector(-5, -5, -5)
+			td.maxs = Vector(5, 5, 5)
+			td.filter = {ply:GetRagdollEntity(), ply}
+			td.mask = MASK_SOLID
+			local tr = util.TraceHull(td)
+			if tr.Hit then
+				print(tr.Entity)
+				left_wrist:SetPos(tr.HitPos)
+				weldl = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 0, false, false)
 			end
 		end
 	else
@@ -123,6 +110,23 @@ local function grabinput(ply, cmd)
 			weldl:Remove()
 		end
 		weldl = nil
+	end
+	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK2) then
+		if not weldr then
+			local td = {}
+			td.start = right_wrist:GetPos()
+			td.endpos = right_wrist:GetPos()
+			td.mins = Vector(-10, -5, -5)
+			td.maxs = Vector(5, 5, 5)
+			td.mask = MASK_SOLID
+			td.filter = {ply:GetRagdollEntity(), ply}
+			local tr = util.TraceHull(td)
+			if tr.Hit then
+				right_wrist:SetPos(tr.HitPos)
+				weldr = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 0, false, false)
+			end
+		end
+	else
 		if IsValid(weldr) then
 			weldr:Remove()
 		end

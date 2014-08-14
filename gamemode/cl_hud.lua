@@ -91,6 +91,7 @@ function GM:HUDDrawTargetID()
 		local font = "TargetID"
 		local ragdoll = Entity(-1)
 		text = ply:Nick() 
+		if ply:IsTyping() then text = text .. "..." end
 		ragdoll = IsValid(ply:GetRagdollEntity()) and ply:GetRagdollEntity() or ply
 		local pos = ply:GetShootPos():ToScreen() 
 		pos.y = pos.y - 20

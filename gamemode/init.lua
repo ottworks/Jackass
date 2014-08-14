@@ -158,28 +158,19 @@ function GM:PlayerInitialSpawn(ply)
 	ply:AddCallback("PhysicsCollide", playerphys)
 end
 
-local player = FindMetaTable("Player")
-function player:GetShootPos()
-	local pos = self:GetPos() + Vector(0, 0, 64)
-	local ang = self:EyeAngles()
-	local offset = pos + Angle(0, ang.y, ang.r):Forward() * 20 * math.max((math.abs(ang.p) - 30), 0) / 90 + Vector(0, 0, 12)
-	local ragoffset = IsValid(self:GetRagdollEntity()) and self:GetRagdollEntity():GetBonePosition(6) + Vector(0, 0, 12)
-	return ragoffset or offset
-end
-function player:EyePos()
-	local pos = self:GetPos() + Vector(0, 0, 64) * self:GetModelScale()
-	local ang = self:EyeAngles()
-	local offset = pos + Angle(0, ang.y, ang.r):Forward() * 20 * math.max((math.abs(ang.p) - 30), 0) / 90 + Vector(0, 0, 12)
-	local ragoffset = IsValid(self:GetRagdollEntity()) and self:GetRagdollEntity():GetBonePosition(6) + Vector(0, 0, 12)
-	return ragoffset or offset
-end
+
 
 local time
+local count = 0
 hook.Add("Think", "cleanup", function()
 	if time then
-		if SysTime() - time > 0.1 then
+		if SysTime() - time > 0.03 then
+			count = count + 1
+		end
+		if count > 5 then
 			for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end
-			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.1 seconds)")
+			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.03 seconds for 5 ticks)")
+			count = 0
 		end
 	end
 	time = SysTime()

@@ -171,6 +171,8 @@ hook.Add("Think", "cleanup", function()
 	if time then
 		if SysTime() - time > 0.03 then
 			count = count + 1
+		else
+			count = 0
 		end
 		if count > 5 then
 			for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end

@@ -59,6 +59,8 @@ function meta:CreateRagdoll()
 	Ent.BoneDamage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
 	Ent.BoneDamage[0] = 0
 	Ent.BreakPoint = 1000
+	Ent.random = math.random()
+	Ent:SetNWFloat("random", Ent.random)
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 	Ent:SetNWEntity("Player", self)
 
@@ -79,14 +81,17 @@ function meta:CreateRagdoll()
 			trace.ignoreworld = true
 			local tr = util.TraceLine(trace)
 			local bone = tr.PhysicsBone
-			if bone == 10 then
-				impact = impact / 2
+			if bone == 10 and ent:GetNWEntity("Player"):GetNWString("Hat") == "Stunt Helmet" then
+				impact = impact / 4
 			end
 			impact = math.floor(impact)
 			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
+
+			local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))
+			
 			if ent.BoneDamage[bone] > ent.BreakPoint / 4 then
-				ent:SetNWInt("profits", ent:GetNWInt("profits") + impact)
+				ent:SetNWInt("profits", profit)
 			end
 		end
 	end

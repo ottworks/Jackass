@@ -27,6 +27,8 @@ if SERVER then
 					prop:Spawn()
 					prop:Activate()
 
+					print("Player " .. ply:GetName() .. " spawned prop " .. BUYABLES[i].model)
+
 					local offset = BUYABLES[i].offset or Angle()
 					prop:SetAngles(Angle(offset.p, ply:EyeAngles().y + offset.y + 180, offset.r))
 					-- Taken from Sandbox

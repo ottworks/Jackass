@@ -60,6 +60,7 @@ function meta:CreateRagdoll()
 	Ent.BoneDamage[0] = 0
 	Ent.BreakPoint = 1000
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
+	Ent:SetNWEntity("Player", self)
 
 	function physics(ent, data, obj)
 		if data.HitEntity == ent then return end

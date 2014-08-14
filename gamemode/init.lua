@@ -19,6 +19,11 @@ resource.AddFile("models/stairsupport_tall.mdl")
 resource.AddFile("models/hanging_stair_128.mdl")
 resource.AddFile("models/stunt_helmet.mdl")
 resource.AddFile("models/freeman/camera.mdl")
+resource.AddFile("materials/models/freeman/camera.mdl")
+resource.AddFile("materials/models/player/items/demo/camera_diffuse.vtf")
+resource.AddFile("materials/models/player/items/demo/camera_specular.vtf")
+resource.AddFile("materials/models/player/items/demo/camera.vmt")
+resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 
 local failed = false
 
@@ -101,7 +106,7 @@ function GM:Move(ply, cmd)
 	end--]]
 
 	if IsValid(ply:GetRagdollEntity()) then
-		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") and not ply:GetNWString("Hat") == "Stunt Helmet" then
+		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") then
 			ExitRagdoll(ply, cmd)
 			if not failed then
 				net.Start("stunt_failure")

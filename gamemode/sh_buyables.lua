@@ -245,7 +245,8 @@ BUYABLES = {
 	}, {
 		type = "prop_physics",
 		model = "models/props_combine/breenchair.mdl",
-		price = 100
+		price = 100,
+		material = "ice"
 	}, {
 		type = "prop_physics",
 		model = "models/props_c17/FurnitureWashingmachine001a.mdl",

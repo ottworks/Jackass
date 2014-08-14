@@ -173,3 +173,14 @@ function player:EyePos()
 	local ragoffset = IsValid(self:GetRagdollEntity()) and self:GetRagdollEntity():GetBonePosition(6) + Vector(0, 0, 12)
 	return ragoffset or offset
 end
+
+local time
+hook.Add("Think", "cleanup", function()
+	if time then
+		if SysTime() - time > 0.1 then
+			for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end
+			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.1 seconds)")
+		end
+	end
+	time = SysTime()
+end)

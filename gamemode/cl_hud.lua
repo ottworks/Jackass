@@ -79,8 +79,8 @@ end
 hook.Add("HUDPaint", "drawmoney", drawmoney) 
 
 local function calcopacity(dist)
-	dist = math.min(dist, 1500)
-	return (2 - (dist / 1000)) * 255
+	dist = math.min(dist, math.abs(dist - 500))
+	return (1 - (dist / 1000)^2) * 255
 end
 
 function GM:HUDDrawTargetID()
@@ -95,6 +95,6 @@ function GM:HUDDrawTargetID()
 		ragdoll = IsValid(ply:GetRagdollEntity()) and ply:GetRagdollEntity() or ply
 		local pos = ply:GetShootPos():ToScreen() 
 		pos.y = pos.y - 20
-		draw.DrawText(text, "TargetID", pos.x, pos.y, Color(255, 128, 0, calcopacity(ragdoll:GetPos():Distance(LocalPlayer():GetPos()))), TEXT_ALIGN_CENTER)
+		draw.DrawText(text, "TargetID", pos.x, pos.y, Color(255, 128, 0, calcopacity(ragdoll:GetPos():Distance(LocalPlayer():GetShootPos()))), TEXT_ALIGN_CENTER)
 	end
 end

@@ -77,3 +77,23 @@ local function drawmoney()
 	end
 end
 hook.Add("HUDPaint", "drawmoney", drawmoney) 
+
+local function calcopacity(dist)
+	dist = math.min(dist, 1500)
+	return (2 - (dist / 1000)) * 255
+end
+
+function GM:HUDDrawTargetID()
+	for _, ply in pairs(player.GetAll()) do
+		if not IsValid(ply) then continue end
+		if ply == LocalPlayer() then continue end
+		local text = "ERROR"
+		local font = "TargetID"
+		local ragdoll = Entity(-1)
+		text = ply:Nick() 
+		ragdoll = IsValid(ply:GetRagdollEntity()) and ply:GetRagdollEntity() or ply
+		local pos = ply:GetShootPos():ToScreen() 
+		pos.y = pos.y - 20
+		draw.DrawText(text, "TargetID", pos.x, pos.y, Color(255, 128, 0, calcopacity(ragdoll:GetPos():Distance(LocalPlayer():GetPos()))), TEXT_ALIGN_CENTER)
+	end
+end

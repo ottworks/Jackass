@@ -89,8 +89,8 @@ local function grabinput(ply, cmd)
 		right_wrist:ApplyForceCenter(ply:GetAimVector() * 200)
 	end
 	--Grab
-	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK) then
-		if not weldl[ply:EntIndex()] then
+	if cmd:KeyDown(IN_ATTACK) then
+		if cmd:KeyDown(IN_USE) and not weldl[ply:EntIndex()] then
 			local td = {}
 			td.start = left_wrist:GetPos()
 			td.endpos = left_wrist:GetPos()
@@ -110,8 +110,8 @@ local function grabinput(ply, cmd)
 		end
 		weldl[ply:EntIndex()] = nil
 	end
-	if cmd:KeyDown(IN_USE) and cmd:KeyDown(IN_ATTACK2) then
-		if not weldr[ply:EntIndex()] then
+	if cmd:KeyDown(IN_ATTACK2) then
+		if cmd:KeyDown(IN_USE) and not weldr[ply:EntIndex()] then
 			local td = {}
 			td.start = right_wrist:GetPos()
 			td.endpos = right_wrist:GetPos()

@@ -174,9 +174,9 @@ hook.Add("Think", "cleanup", function()
 		else
 			count = 0
 		end
-		if count > 5 then
+		if count > 3 then
 			for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end
-			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.03 seconds for 5 ticks)")
+			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.03 seconds for 3 ticks)")
 			count = 0
 		end
 	end

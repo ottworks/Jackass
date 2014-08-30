@@ -82,5 +82,5 @@ if CLIENT then
 		cam.IgnoreZ(false)
 		model:SetRenderOrigin(Vector())
 	end
-	hook.Add("PostDrawTranslucentRenderables", "rattlemebones", rattlebones)
+	hook.Add("PostDrawOpaqueRenderables", "rattlemebones", rattlebones)
 end

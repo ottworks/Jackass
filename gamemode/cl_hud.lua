@@ -79,7 +79,7 @@ end
 hook.Add("HUDPaint", "drawmoney", drawmoney) 
 
 local function calcopacity(dist)
-	dist = math.min(dist, math.abs(dist - 500))
+	dist = math.min(dist, math.abs(dist - 1000))
 	return (1 - (dist / 1000)^2) * 255
 end
 

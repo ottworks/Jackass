@@ -70,7 +70,7 @@ if CLIENT then
 				model:SetRenderOrigin( pos );
 				model:SetRenderAngles( ang );
 				model:SetupBones();
-					render.SetColorModulation(0.5, 0.5, 0.5)
+					render.SetColorModulation(0.5, 0.5 - (damage / breakpoint) / 2, 0.5 - (damage / breakpoint) / 2)
 					model:SetModelScale(0.9, 0)
 					model:DrawModel()
 					model:SetModelScale(0.8, 0)

@@ -3,9 +3,9 @@ include("cl_serversidebodies.lua")
 include("cl_hud.lua")
 include("cl_hats.lua")
 
+local prevang
 
 function GM:CalcView(ply, pos, ang, fov, nearz, farz)
-	ang.y = ang.y + 0
 	local offset = pos + Angle(0, ang.y, ang.r):Forward() * 20 * math.max((math.abs(ang.p) - 30), 0) / 90 + Vector(0, 0, 12)
 	local ragoffset = IsValid(ply:GetRagdollEntity()) and ply:GetRagdollEntity():GetBonePosition(6) + Vector(0, 0, 12)
 	local view = {angles = ang}
@@ -30,6 +30,15 @@ function GM:CalcView(ply, pos, ang, fov, nearz, farz)
 	end
 	if not IsValid(ply:GetRagdollEntity()) then
 		view.drawviewer = true
+	else
+		local _, ang = ply:GetRagdollEntity():GetBonePosition(6) --head ang
+		ang.y = 0
+		ang = LerpAngle(0.9, ang, Angle(0, 0, 0))
+		prevang = prevang or ang
+		ang = LerpAngle(0.01, prevang, ang)
+		view.angles = view.angles + ang
+
+		prevang = ang
 	end
 	return view
 end

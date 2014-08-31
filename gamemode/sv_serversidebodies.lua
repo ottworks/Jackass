@@ -85,7 +85,7 @@ function meta:CreateRagdoll()
 				impact = impact / 4
 			end
 			impact = math.floor(impact)
-			if ent.BoneDamage[bone] == ent.BreakPoint then break end
+			if ent.BoneDamage[bone] == ent.BreakPoint then return end
 			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
 			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
 			local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))

@@ -1,5 +1,5 @@
 local weldl, weldr = {}, {}
-local reachmult = 1
+local reachmult = {}
 
 local function grabinput(ply, cmd)
 	if not IsValid(ply:GetRagdollEntity()) or not ply:Alive() then return end
@@ -83,11 +83,11 @@ local function grabinput(ply, cmd)
 	end
 	--Left Arm
 	if cmd:KeyDown(IN_ATTACK) then
-		left_wrist:ApplyForceCenter(ply:GetAimVector() * 200 * reachmult)
+		left_wrist:ApplyForceCenter(ply:GetAimVector() * 200 * reachmult[ply:EntIndex()] or 1)
 	end
 	--Right Arm
 	if cmd:KeyDown(IN_ATTACK2) then
-		right_wrist:ApplyForceCenter(ply:GetAimVector() * 200 * reachmult)
+		right_wrist:ApplyForceCenter(ply:GetAimVector() * 200 * reachmult[ply:EntIndex()] or 1)
 	end
 	--Grab
 	if cmd:KeyDown(IN_ATTACK) then
@@ -132,10 +132,10 @@ local function grabinput(ply, cmd)
 		end
 		weldr[ply:EntIndex()] = nil
 	end
-	if IsValid(weldl[ply:EntIndex()]) or IsValid(weldr[ply:EntIndex()]) then
-		reachmult = 3
+	if not (IsValid(weldl[ply:EntIndex()]) == IsValid(weldr[ply:EntIndex()])) then
+		reachmult[ply:EntIndex()] = 3
 	else 
-		reachmult = 1
+		reachmult[ply:EntIndex()] = 1
 	end
 end
 hook.Add("Move", "puppetinput", grabinput)

@@ -4,7 +4,7 @@ AddCSLuaFile("cl_serversidebodies.lua")
 AddCSLuaFile("sh_bones.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("includes/modules/easings.lua")
-AddCSLuaFile("sh_spawnmenu.lua")
+AddCSLuaFile("cl_spawnmenu.lua")
 AddCSLuaFile("sh_buyables.lua")
 AddCSLuaFile("cl_hats.lua")
 
@@ -12,6 +12,7 @@ include("shared.lua")
 include("sv_serversidebodies.lua")
 include("sv_puppetmaster.lua")
 include("sv_sql_database.lua")
+include("sv_spawnmenu.lua")
 
 resource.AddFile("sound/jackass/chaching.wav")
 resource.AddFile("resource/321impact.ttf")
@@ -27,7 +28,7 @@ resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 
 local failed = false
 
-function ExitRagdoll(ply, cmd)
+function ExitRagdoll(ply)
 	ply:DrawViewModel(true)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
@@ -65,7 +66,8 @@ function ExitRagdoll(ply, cmd)
 		end
 	end)
 end
-function EnterRagdoll(ply, cmd)
+function EnterRagdoll(ply)
+	ply:SetActiveWeapon(NULL)
 	ply:DrawViewModel(false)
 	net.Start("stunt_begin")
 	net.Send(ply)

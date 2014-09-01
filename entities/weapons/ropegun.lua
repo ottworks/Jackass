@@ -32,9 +32,9 @@ function SWEP:PrimaryAttack()
 		if stage == 1 then
 			ent = tr.Entity
 			bone = tr.PhysicsBone
-			pos = tr.HitPos - ent:GetPos()
+			pos = ent:WorldToLocal(tr.HitPos)
 		else
-			constraint.Rope(ent, tr.Entity, bone, tr.PhysicsBone, pos, tr.HitPos - tr.Entity:GetPos(), (tr.HitPos - (pos + ent:GetPos())):Length(), 10, 0, 2, "cable/rope", false)
+			constraint.Rope(ent, tr.Entity, bone, tr.PhysicsBone, pos, tr.Entity:WorldToLocal(tr.HitPos), tr.HitPos:Distance(ent:LocalToWorld(pos)), 10, 0, 2, "cable/rope", false)
 			stage = 0
 		end
 	end

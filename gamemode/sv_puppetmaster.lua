@@ -102,7 +102,7 @@ local function grabinput(ply, cmd)
 			local tr = util.TraceHull(td)
 			if tr.Hit then
 				left_wrist:SetPos(tr.HitPos)
-				weldl[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 0, false, false)
+				weldl[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 10000, false, false)
 			end
 		end
 	else
@@ -123,7 +123,7 @@ local function grabinput(ply, cmd)
 			local tr = util.TraceHull(td)
 			if tr.Hit then
 				right_wrist:SetPos(tr.HitPos)
-				weldr[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 0, false, false)
+				weldr[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 10000, false, false)
 			end
 		end
 	else
@@ -134,7 +134,9 @@ local function grabinput(ply, cmd)
 	end
 	if not (IsValid(weldl[ply:EntIndex()]) == IsValid(weldr[ply:EntIndex()])) then
 		reachmult[ply:EntIndex()] = 3
-	else 
+	elseif IsValid(weldl[ply:EntIndex()]) then
+		reachmult[ply:EntIndex()] = 0
+	else
 		reachmult[ply:EntIndex()] = 1
 	end
 end

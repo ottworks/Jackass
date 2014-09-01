@@ -28,6 +28,7 @@ resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 local failed = false
 
 function ExitRagdoll(ply, cmd)
+	ply:DrawViewModel(true)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
 	ply:GetRagdollEntity():SetRenderBones(false)
@@ -65,6 +66,7 @@ function ExitRagdoll(ply, cmd)
 	end)
 end
 function EnterRagdoll(ply, cmd)
+	ply:DrawViewModel(false)
 	net.Start("stunt_begin")
 	net.Send(ply)
 	ply:CreateRagdoll()

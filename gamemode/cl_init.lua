@@ -35,8 +35,13 @@ function GM:CalcView(ply, pos, ang, fov, nearz, farz)
 		ang.y = 0
 		ang = LerpAngle(0.9, ang, Angle(0, 0, 0))
 		prevang = prevang or ang
-		ang = LerpAngle(0.01, prevang, ang)
-		view.angles = view.angles + ang
+		ang = LerpAngle(0.1, prevang, ang)
+		ang1 = Angle()
+		ang1:Set(ang)
+		ang1:RotateAroundAxis(ang:Up(), view.angles.y)
+		ang1.y = 0
+		ang1.p = 0
+		view.angles = view.angles + ang1
 
 		prevang = ang
 	end

@@ -80,11 +80,13 @@ function EnterRagdoll(ply, cmd)
 			ply:GetRagdollEntity():SetRenderBones(true)
 			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())
 			timer.Create("ragupdate" .. ply:EntIndex(), 5, 0, function()
-				ply:SetMoveType(MOVETYPE_WALK)
-				timer.Simple(0.1, function()
-					ply:SetPos(ply:GetRagdollEntity():GetPos())
-					ply:SetMoveType(MOVETYPE_NONE)
-				end)
+				if IsValid(ply:GetRagdollEntity()) then
+					ply:SetMoveType(MOVETYPE_WALK)
+					timer.Simple(0.1, function()
+						ply:SetPos(ply:GetRagdollEntity():GetPos())
+						ply:SetMoveType(MOVETYPE_NONE)
+					end)
+				end
 			end)
 			timer.Destroy("ragcreate")
 		end

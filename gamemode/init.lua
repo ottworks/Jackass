@@ -77,7 +77,7 @@ function EnterRagdoll(ply)
 		ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 		ply:SetNoDraw(true)
 	end)
-	timer.Create("ragcreate", 0.01, 0, function()
+	timer.Create("ragcreate", 0.1, 0, function()
 		if IsValid(ply:GetRagdollEntity()) then
 			ply:GetRagdollEntity():SetRenderBones(true)
 			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())

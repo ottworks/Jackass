@@ -2,6 +2,7 @@ include("shared.lua")
 include("cl_serversidebodies.lua")
 include("cl_hud.lua")
 include("cl_hats.lua")
+include("cl_spawnmenu.lua")
 
 local prevang
 

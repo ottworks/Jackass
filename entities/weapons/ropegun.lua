@@ -43,3 +43,7 @@ end
 function SWEP:SecondaryAttack()
 
 end
+
+function SWEP:Deploy()
+	self.Owner:DrawViewModel(false)
+end

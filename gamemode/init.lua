@@ -196,3 +196,7 @@ hook.Add("Think", "cleanup", function()
 	end
 	time = SysTime()
 end)
+
+if GetConVarNumber("js_allowcslua") == 1 then
+	RunConsoleCommand("sv_allowcslua", "1")
+end

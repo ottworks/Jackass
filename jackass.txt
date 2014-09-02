@@ -4,4 +4,16 @@
 	"title"		"Jackass"
 	"maps"		"^js_"
 	"menusystem"	"1"
+
+	"settings"
+	{
+		1
+		{
+			"name"		"js_allowcslua"
+			"text"		"Clientside Scripts"
+			"help"		"Enables/disables clientside scripts. Requires server restart."
+			"type"		"numeric"
+			"default"	"1"
+		}
+	}
 }

@@ -63,7 +63,7 @@ spawnmenu:SetVisible(false)
 				local mdl = ACCESSORIES[i].model
 				local rev = string.reverse(string.sub(mdl, 1, -5))
 				local s = string.find(rev, "/")
-				local nick = string.reverse(string.sub(rev, 1, s - 1))
+				nick = string.reverse(string.sub(rev, 1, s - 1))
 			else nick = ACCESSORIES[i].nick end
 			local but = vgui.Create( "SpawnIcon" )
 			but:SetSize(64, 64)

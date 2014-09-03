@@ -17,7 +17,7 @@ SWEP.DrawAmmo			= false
 SWEP.DrawCrosshair		= true
 
 SWEP.ViewModel			= "models/weapons/v_pistol.mdl"
-SWEP.WorldModel			= "models/weapons/w_pistol.mdl"
+SWEP.WorldModel			= "models/weapons/w_crossbow.mdl"
 
 local ShootSound = Sound("Metal.SawbladeStick")
 local stage = 0
@@ -35,6 +35,20 @@ function SWEP:PrimaryAttack()
 			pos = ent:WorldToLocal(tr.HitPos)
 		else
 			constraint.Rope(ent, tr.Entity, bone, tr.PhysicsBone, pos, tr.Entity:WorldToLocal(tr.HitPos), tr.HitPos:Distance(ent:LocalToWorld(pos)), 10, 0, 2, "cable/rope", false)
+			local id = "DecayBase" .. tr.Entity:EntIndex()
+			if timer.Exists(id) then
+				timer.Pause(id)
+				timer.Simple(5*60, function()
+					timer.UnPause(id)
+				end)
+			end
+			local id = "DecayBase" .. ent:EntIndex()
+			if timer.Exists(id) then
+				timer.Pause(id)
+				timer.Simple(5*60, function()
+					timer.UnPause(id)
+				end)
+			end
 			stage = 0
 		end
 	end
@@ -46,4 +60,5 @@ end
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
+	self:SetHoldType("crossbow")
 end

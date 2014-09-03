@@ -47,7 +47,7 @@ net.Receive("buy", function(len, ply)
 					prop:GetPhysicsObject():SetMaterial(BUYABLES[i].material)
 				end
 
-				timer.Simple(60 * 5, function()
+				timer.Create("DecayBase" .. prop:EntIndex(), 60 * 5, 1, function()
 					if IsValid(prop) then
 						local i = 1
 						timer.Create("Decay" .. prop:EntIndex(), 1, 5, function()

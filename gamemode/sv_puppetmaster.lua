@@ -100,7 +100,7 @@ local function grabinput(ply, cmd)
 			td.filter = {ply:GetRagdollEntity(), ply}
 			td.mask = MASK_SOLID
 			local tr = util.TraceHull(td)
-			if tr.Hit then
+			if tr.Hit and not tr.Entity:IsPlayer() then
 				left_wrist:SetPos(tr.HitPos)
 				weldl[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 5, tr.PhysicsBone, 10000, false, false)
 			end
@@ -121,7 +121,7 @@ local function grabinput(ply, cmd)
 			td.mask = MASK_SOLID
 			td.filter = {ply:GetRagdollEntity(), ply}
 			local tr = util.TraceHull(td)
-			if tr.Hit then
+			if tr.Hit and not tr.Entity:IsPlayer() then
 				right_wrist:SetPos(tr.HitPos)
 				weldr[ply:EntIndex()] = constraint.Weld(ply:GetRagdollEntity(), tr.Entity, 7, tr.PhysicsBone, 10000, false, false)
 			end

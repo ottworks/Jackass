@@ -342,6 +342,70 @@ BUYABLES = {
 		price = 100
 	}, {
 		type = "prop_physics",
+		model = "models/XQM/Rails/gumball_1.mdl",
+		price = 1000,
+	}, {
+		type = "prop_physics",
+		model = "models/XQM/Rails/trackball_1.mdl",
+		price = 1000,
+	}, {
+		type = "prop_physics",
+		model = "models/XQM/CoasterTrack/train_2.mdl",
+		price = 8000,
+	}, {
+		type = "prop_physics",
+		model = "models/XQM/coastertrain1.mdl",
+		price = 8000,
+	}, {
+		type = "prop_physics",
+		model = "models/XQM/coastertrain2seat.mdl",
+		price = 10000,
+	}, {
+		type = "prop_physics",
+		model = "models/XQM/coastertrain1seat.mdl",
+		price = 4000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_c17/playgroundTick-tack-toe_post01.mdl",
+		price = 2000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_c17/FurnitureBed001a.mdl",
+		price = 1000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_wasteland/prison_bedframe001b.mdl",
+		price = 1000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_c17/column02a.mdl",
+		price = 5000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_combine/combine_train02b.mdl",
+		price = 10000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_vehicles/car001a_hatchback.mdl",
+		price = 5000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_vehicles/trailer002a.mdl",
+		price = 5000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_vehicles/truck001a.mdl",
+		price = 6000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_combine/combinetower001.mdl",
+		price = 10000,
+	}, {
+		type = "prop_physics",
+		model = "models/props_c17/playgroundslide01.mdl",
+		price = 1000,
+	}, {
+		type = "prop_physics",
 		model = "models/props_c17/oildrum001_explosive.mdl",
 		price = 1000,
 	},

@@ -354,18 +354,6 @@ BUYABLES = {
 		price = 8000,
 	}, {
 		type = "prop_physics",
-		model = "models/XQM/coastertrain1.mdl",
-		price = 8000,
-	}, {
-		type = "prop_physics",
-		model = "models/XQM/coastertrain2seat.mdl",
-		price = 10000,
-	}, {
-		type = "prop_physics",
-		model = "models/XQM/coastertrain1seat.mdl",
-		price = 4000,
-	}, {
-		type = "prop_physics",
 		model = "models/props_c17/playgroundTick-tack-toe_post01.mdl",
 		price = 2000,
 	}, {

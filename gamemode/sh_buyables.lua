@@ -430,5 +430,5 @@ ACCESSORIES = {
 	}
 }
 table.sort(ACCESSORIES, function(a, b)
-	return a.model > b.model
+	return a.nick > b.nick
 end)

@@ -33,7 +33,6 @@ function GM:CalcView(ply, pos, ang, fov, nearz, farz)
 		view.drawviewer = true
 	else
 		local _, ang = ply:GetRagdollEntity():GetBonePosition(6) --head ang
-		ang.y = 0
 		ang = LerpAngle(0.9, ang, Angle(0, 0, 0))
 		prevang = prevang or ang
 		ang = LerpAngle(0.1, prevang, ang)

@@ -15,7 +15,7 @@ include("sv_sql_database.lua")
 include("sv_spawnmenu.lua")
 
 resource.AddFile("sound/jackass/chaching.wav")
-resource.AddFile("resource/321impact.ttf")
+resource.AddFile("resource/fonts/321impact.ttf")
 resource.AddFile("models/stairsupport_tall.mdl")
 resource.AddFile("models/hanging_stair_128.mdl")
 resource.AddFile("models/stunt_helmet.mdl")

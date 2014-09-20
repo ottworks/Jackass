@@ -64,9 +64,17 @@ function meta:CreateRagdoll()
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 	Ent:SetNWEntity("Player", self)
 
-	function physics(ent, data, obj)
+	local function physics(ent, data, obj)
 		if data.HitEntity == ent then return end
 		local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
+		if data.HitEntity ~= Entity(0) then
+			timer.Simple(0, function()
+				if not IsValid(data.HitEntity) then
+					--Prop break
+				end 
+			end)
+			print(test)
+		end
 		if impact > 100 then
 			if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
 				--WINDOW BREAK

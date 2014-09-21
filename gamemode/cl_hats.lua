@@ -13,6 +13,6 @@ local function drawhats()
 			model:DrawModel();
 		end
 	end
-	model:SetRenderOrigin(Vector())
+	--model:SetRenderOrigin(Vector())
 end
 hook.Add("PostDrawTranslucentRenderables", "drawhats", drawhats)

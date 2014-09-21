@@ -6,6 +6,7 @@ if (!meta) then return end
 
 local CreateRagdoll		= meta.CreateRagdoll
 local GetRagdollEntity	= meta.GetRagdollEntity
+local lasthit
 
 // In this file we're adding functions to the player meta table.
 // This means you'll be able to call functions here straight from the player object
@@ -32,7 +33,7 @@ local function RemoveRagdollEntity(ply)
 
 		ply.m_hRagdollEntity:Remove()
 		ply.m_hRagdollEntity = nil
-
+		timer.Destroy("muldecay" .. ply:EntIndex())
 	end
 
 end
@@ -43,20 +44,28 @@ hook.Add("PlayerDisconnected", "RemoveRagdollEntity", RemoveRagdollEntity)
 
 local function physics(ent, data, obj)
 	if data.HitEntity == ent then return end
+	local ply = ent:GetNWEntity("Player")
 	local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
 	if data.HitEntity ~= Entity(0) then
 		local prophealth = data.HitEntity:GetMaxHealth()
+		local id = data.HitEntity:EntIndex()
 		timer.Simple(0, function()
 			if not IsValid(data.HitEntity) then
 				--Prop break
-				ent:SetNWInt("profits", ent:GetNWInt("profits") + prophealth)
+				if lasthit ~= id then
+					ent:AddMultiplier(2, "Prop Broken")
+					lasthit = id
+					timer.Simple(0, function()
+						lasthit = 0
+					end)
+				end
 			end 
 		end)
 	end
 	if impact > 100 then
 		if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
 			--WINDOW BREAK
-			
+			ent:AddMultiplier(3, "Window Broken")
 		end
 	end
 	if impact > 300 then
@@ -70,12 +79,12 @@ local function physics(ent, data, obj)
 		if bone == 10 and ent:GetNWEntity("Player"):GetNWString("Hat") == "Stunt Helmet" then
 			impact = impact / 4
 		end
-		impact = math.floor(impact)
 		if ent.BoneDamage[bone] == ent.BreakPoint then return end
 		ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
 		ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
+
+		impact = math.floor(impact * ent:GetNWInt("mul") or 1)
 		local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))
-		--ent.BoneDamage[bone]
 		if impact > ent.BreakPoint / 4 then
 			if ent.CanSpeak then
 				ent:EmitSound(randomsound(SOUNDS.male, bone), 100, 100 + math.random(-10, 10))
@@ -110,6 +119,8 @@ function meta:CreateRagdoll()
 	Ent.BoneDamage[0] = 0
 	Ent.BreakPoint = 1000
 	Ent.random = math.random()
+	Ent.muls = {}
+	Ent:SetNWInt("mul", 1)
 	Ent:SetNWFloat("random", Ent.random)
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 	Ent:SetNWEntity("Player", self)
@@ -146,6 +157,12 @@ function meta:CreateRagdoll()
     end  
 	self:SetNetworkedEntity("m_hRagdollEntity", Ent)
 	self.m_hRagdollEntity = Ent
+
+	timer.Create("muldecay" .. self:EntIndex(), 2, 0, function()
+		if Ent:GetNWInt("mul") > 1 then
+			Ent:SetNWInt("mul", Ent:GetNWInt("mul") - 1)
+		end
+	end)
 end
 
 function meta:GetRagdollEntity()

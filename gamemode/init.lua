@@ -8,6 +8,7 @@ AddCSLuaFile("cl_spawnmenu.lua")
 AddCSLuaFile("sh_buyables.lua")
 AddCSLuaFile("cl_hats.lua")
 AddCSLuaFile("sh_sounds.lua")
+AddCSLuaFile("sh_multipliers.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")

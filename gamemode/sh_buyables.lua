@@ -138,31 +138,38 @@ BUYABLES = {
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/car004a_physics.mdl",
- 		price = 6000
+ 		price = 6000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/car005a_physics.mdl",
- 		price = 6000
+ 		price = 6000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/car002a_physics.mdl",
- 		price = 6000
+ 		price = 6000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/trailer001a.mdl",
- 		price = 4000
+ 		price = 4000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/wagon001a_phy.mdl",
- 		price = 500
+ 		price = 500,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_vehicles/van001a_physics.mdl",
- 		price = 6000
+ 		price = 6000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_canal/boat002b.mdl",
- 		price = 4000
+ 		price = 4000,
+ 		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_c17/statue_horse.mdl",

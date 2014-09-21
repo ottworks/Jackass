@@ -40,6 +40,55 @@ end
 hook.Add("PlayerSpawn", "RemoveRagdollEntity", RemoveRagdollEntity)
 hook.Add("PlayerDisconnected", "RemoveRagdollEntity", RemoveRagdollEntity)
 
+
+local function physics(ent, data, obj)
+	if data.HitEntity == ent then return end
+	local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
+	if data.HitEntity ~= Entity(0) then
+		local prophealth = data.HitEntity:GetMaxHealth()
+		timer.Simple(0, function()
+			if not IsValid(data.HitEntity) then
+				--Prop break
+				ent:SetNWInt("profits", ent:GetNWInt("profits") + prophealth)
+			end 
+		end)
+	end
+	if impact > 100 then
+		if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
+			--WINDOW BREAK
+			
+		end
+	end
+	if impact > 300 then
+		impact = impact - 300
+		local trace = {}
+		trace.start = data.HitPos
+		trace.endpos = data.HitPos + data.HitNormal * -5
+		trace.ignoreworld = true
+		local tr = util.TraceLine(trace)
+		local bone = tr.PhysicsBone
+		if bone == 10 and ent:GetNWEntity("Player"):GetNWString("Hat") == "Stunt Helmet" then
+			impact = impact / 4
+		end
+		impact = math.floor(impact)
+		if ent.BoneDamage[bone] == ent.BreakPoint then return end
+		ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
+		ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
+		local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))
+		--ent.BoneDamage[bone]
+		if impact > ent.BreakPoint / 4 then
+			if ent.CanSpeak then
+				ent:EmitSound(randomsound(SOUNDS.male, bone), 100, 100 + math.random(-10, 10))
+				ent.CanSpeak = false
+				timer.Simple(5, function()
+					ent.CanSpeak = true
+				end)
+			end
+			ent:SetNWInt("profits", profit)
+		end
+	end
+end
+
 function meta:CreateRagdoll()
 	local Ent = self:GetRagdollEntity()
 	if (Ent && Ent:IsValid()) then Ent:Remove() end
@@ -56,6 +105,7 @@ function meta:CreateRagdoll()
 	Ent.CanTool			= false
 	Ent.GravGunPunt		= false
 	Ent.PhysgunDisabled	= false
+	Ent.CanSpeak 		= true
 	Ent.BoneDamage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
 	Ent.BoneDamage[0] = 0
 	Ent.BreakPoint = 1000
@@ -64,46 +114,6 @@ function meta:CreateRagdoll()
 	Ent:SetNWInt("BreakPoint", Ent.BreakPoint)
 	Ent:SetNWEntity("Player", self)
 
-	local function physics(ent, data, obj)
-		if data.HitEntity == ent then return end
-		local impact = ((data.OurOldVelocity - data.TheirOldVelocity) * data.HitNormal):Distance(Vector())
-		if data.HitEntity ~= Entity(0) then
-			local prophealth = data.HitEntity:GetMaxHealth()
-			timer.Simple(0, function()
-				if not IsValid(data.HitEntity) then
-					--Prop break
-					ent:SetNWInt("profits", ent:GetNWInt("profits") + prophealth)
-				end 
-			end)
-		end
-		if impact > 100 then
-			if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
-				--WINDOW BREAK
-				
-			end
-		end
-		if impact > 300 then
-			impact = impact - 300
-			local trace = {}
-			trace.start = data.HitPos
-			trace.endpos = data.HitPos + data.HitNormal * -5
-			trace.ignoreworld = true
-			local tr = util.TraceLine(trace)
-			local bone = tr.PhysicsBone
-			if bone == 10 and ent:GetNWEntity("Player"):GetNWString("Hat") == "Stunt Helmet" then
-				impact = impact / 4
-			end
-			impact = math.floor(impact)
-			if ent.BoneDamage[bone] == ent.BreakPoint then return end
-			ent.BoneDamage[bone] = math.min(ent.BoneDamage[bone] + impact, ent.BreakPoint)
-			ent:SetNWInt("BoneDamage" .. bone, ent.BoneDamage[bone])
-			local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))
-			--ent.BoneDamage[bone]
-			if impact > ent.BreakPoint / 4 then
-				ent:SetNWInt("profits", profit)
-			end
-		end
-	end
 	Ent:AddCallback("PhysicsCollide", physics)
 
 	local Vel = self:GetVelocity()

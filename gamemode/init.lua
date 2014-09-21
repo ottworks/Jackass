@@ -7,6 +7,7 @@ AddCSLuaFile("includes/modules/easings.lua")
 AddCSLuaFile("cl_spawnmenu.lua")
 AddCSLuaFile("sh_buyables.lua")
 AddCSLuaFile("cl_hats.lua")
+AddCSLuaFile("sh_sounds.lua")
 
 include("shared.lua")
 include("sv_serversidebodies.lua")

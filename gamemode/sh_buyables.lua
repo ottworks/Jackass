@@ -140,19 +140,19 @@ BUYABLES = {
  		price = 300
  	}, {
  		type = "prop_physics",
- 		model = "models/props_vehicles/car004a_physics.mdl",
+ 		model = "models/props_vehicles/car004a.mdl",
  		price = 6000,
  		material = "ice",
  		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
- 		model = "models/props_vehicles/car005a_physics.mdl",
+ 		model = "models/props_vehicles/car005a.mdl",
  		price = 6000,
  		material = "ice",
  		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
- 		model = "models/props_vehicles/car002a_physics.mdl",
+ 		model = "models/props_vehicles/car002a.mdl",
  		price = 6000,
  		material = "ice",
  		offset = Angle(0, 180, 0)
@@ -164,13 +164,13 @@ BUYABLES = {
  		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
- 		model = "models/props_vehicles/wagon001a_phy.mdl",
+ 		model = "models/props_vehicles/wagon001a.mdl",
  		price = 500,
  		material = "ice",
  		offset = Angle(0, 180, 0)
  	}, {
  		type = "prop_physics",
- 		model = "models/props_vehicles/van001a_physics.mdl",
+ 		model = "models/props_vehicles/van001a.mdl",
  		price = 6000,
  		material = "ice",
  		offset = Angle(0, 180, 0)

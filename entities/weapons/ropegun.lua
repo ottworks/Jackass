@@ -23,6 +23,7 @@ local ShootSound = Sound("Metal.SawbladeStick")
 local stage = 0
 local ent, bone, pos
 function SWEP:PrimaryAttack()
+	if not IsFirstTimePredicted() then return end
 	self:EmitSound(ShootSound)
 	if not SERVER then return end
 	local tr = self.Owner:GetEyeTrace()

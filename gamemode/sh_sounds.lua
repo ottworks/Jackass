@@ -17,10 +17,6 @@ local right_ankle = 14
 SOUNDS = {
 	male = {
 		generic = {
-			"vo/npc/male01/moan01.wav",
-			"vo/npc/male01/moan02.wav",
-			"vo/npc/male01/moan03.wav",
-			"vo/npc/male01/moan04.wav",
 			"vo/npc/male01/ow01.wav",
 			"vo/npc/male01/ow02.wav",
 			"vo/npc/male01/pain01.wav",
@@ -33,9 +29,10 @@ SOUNDS = {
 			"vo/npc/male01/pain08.wav",
 			"vo/npc/male01/pain09.wav",
 			"vo/npc/male01/no02.wav",
+			"vo/npc/male01/startle01.wav",
+			"vo/npc/male01/startle02.wav"
 		},
 		[gut] = {
-			"vo/npc/male01/gordead_ans19.wav", --I'm gonna be sick.
 			"vo/npc/male01/hitingut01.wav", 
 			"vo/npc/male01/hitingut02.wav", 
 			"vo/npc/male01/mygut02.wav"
@@ -47,8 +44,15 @@ SOUNDS = {
 		leg = {
 			"vo/npc/male01/myleg01.wav",
 			"vo/npc/male01/myleg02.wav",
+		},
+		settled = {
+			"vo/npc/male01/question18.wav",
+			"vo/npc/male01/moan01.wav",
+			"vo/npc/male01/moan02.wav",
+			"vo/npc/male01/moan03.wav",
+			"vo/npc/male01/moan04.wav",
+			"vo/npc/male01/gordead_ans19.wav"
 		}
-
 	}
 }
 

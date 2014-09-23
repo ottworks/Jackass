@@ -163,6 +163,21 @@ function meta:CreateRagdoll()
 			Ent:SetNWInt("mul", Ent:GetNWInt("mul") - 1)
 		end
 	end)
+	local still = false
+	local id = self:EntIndex()
+	timer.Create("settle" .. id, 2, 0, function()
+		if not IsValid(Ent) then timer.Destroy("settle" .. id) return end
+		if Ent:GetVelocity():Length() < 10 then
+			if still then
+				Ent:EmitSound(table.Random(SOUNDS.male.settled), 100, 100 + math.random(-10, 10))
+				timer.Destroy("settle" .. id)
+			else
+				still = true
+			end
+		else
+			still = false
+		end
+	end)
 end
 
 function meta:GetRagdollEntity()

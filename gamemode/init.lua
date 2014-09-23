@@ -86,9 +86,11 @@ function EnterRagdoll(ply)
 			timer.Create("ragupdate" .. ply:EntIndex(), 5, 0, function()
 				if IsValid(ply:GetRagdollEntity()) then
 					ply:SetMoveType(MOVETYPE_WALK)
-					timer.Simple(0.1, function()
-						ply:SetPos(ply:GetRagdollEntity():GetPos())
-						ply:SetMoveType(MOVETYPE_NONE)
+					timer.Simple(0, function()
+						if IsValid(ply:GetRagdollEntity()) then
+							ply:SetPos(ply:GetRagdollEntity():GetPos())
+							ply:SetMoveType(MOVETYPE_NONE)
+						end
 					end)
 				end
 			end)

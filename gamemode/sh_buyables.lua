@@ -279,7 +279,8 @@ BUYABLES = {
  	}, {
  		type = "prop_physics",
  		model = "models/props_phx/construct/concrete_pipe01.mdl",
- 		price = 600
+ 		price = 600,
+ 		offset = Angle(-90, 0, 0)
  	}, {
  		type = "prop_physics",
  		model = "models/props_phx/construct/concrete_barrier00.mdl",

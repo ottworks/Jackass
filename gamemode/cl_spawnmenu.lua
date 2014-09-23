@@ -59,8 +59,8 @@ spawnmenu:SetVisible(false)
 		grid2:SetRowHeight(64)
 		for i = 1, #ACCESSORIES do
 			local nick
+			local mdl = ACCESSORIES[i].model
 			if not ACCESSORIES[i].nick then
-				local mdl = ACCESSORIES[i].model
 				local rev = string.reverse(string.sub(mdl, 1, -5))
 				local s = string.find(rev, "/")
 				nick = string.reverse(string.sub(rev, 1, s - 1))

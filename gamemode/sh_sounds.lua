@@ -30,7 +30,8 @@ SOUNDS = {
 			"vo/npc/male01/pain09.wav",
 			"vo/npc/male01/no02.wav",
 			"vo/npc/male01/startle01.wav",
-			"vo/npc/male01/startle02.wav"
+			"vo/npc/male01/startle02.wav",
+			"vo/npc/barney/ba_ohshit03.wav",
 		},
 		[gut] = {
 			"vo/npc/male01/hitingut01.wav", 
@@ -52,6 +53,17 @@ SOUNDS = {
 			"vo/npc/male01/moan03.wav",
 			"vo/npc/male01/moan04.wav",
 			"vo/npc/male01/gordead_ans19.wav"
+		},
+		jumping = {
+			"vo/canals/male01/stn6_incoming.wav",
+			"vo/coast/odessa/male01/nlo_cheer01.wav",
+			"vo/coast/odessa/male01/nlo_cheer02.wav",
+			"vo/coast/odessa/male01/nlo_cheer03.wav",
+			"vo/coast/odessa/male01/nlo_cheer04.wav",
+			"vo/npc/male01/cit_dropper04.wav",
+			"vo/npc/male01/headsup01.wav",
+			"vo/npc/male01/headsup02.wav",
+
 		}
 	}
 }

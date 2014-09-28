@@ -56,17 +56,23 @@ local function grabinput(ply, cmd)
 		head:ApplyForceCenter(pos * 1500)
 	end
 	--Air Control
-	if (not cmd:KeyDown(IN_DUCK) and not cmd:KeyDown(IN_SPEED)) and body:GetVelocity().z < -500 then
-		for i = 1, body:GetPhysicsObjectCount()-1 do
-			local bone = body:GetPhysicsObjectNum(i)
-			local pos = bone:GetPos() - body:GetPos()
+	if  body:GetVelocity().z < -500 then
+		if not cmd:KeyDown(IN_DUCK) and not cmd:KeyDown(IN_SPEED) then
+			for i = 1, body:GetPhysicsObjectCount()-1 do
+				local bone = body:GetPhysicsObjectNum(i)
+				local pos = bone:GetPos() - body:GetPos()
+				pos:Normalize()
+				bone:ApplyForceCenter(pos * 200)
+			end
+			local pos = body:WorldToLocal(head:GetPos()) * 2
+			pos = body:LocalToWorld(pos) - body:GetPos()
 			pos:Normalize()
-			bone:ApplyForceCenter(pos * 200)
+			head:ApplyForceCenter(pos * 20)
 		end
-		local pos = body:WorldToLocal(head:GetPos()) * 2
-		pos = body:LocalToWorld(pos) - body:GetPos()
-		pos:Normalize()
-		head:ApplyForceCenter(pos * 20)
+		if not body.SaidJumpLine then
+			body:EmitSound(table.Random(SOUNDS.male.jumping), 100, 100 + math.random(-10, 10))
+			body.SaidJumpLine = true
+		end
 	end
 	--Rotation
 	if cmd:KeyDown(IN_FORWARD) then

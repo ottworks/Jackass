@@ -31,6 +31,7 @@ resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 local failed = false
 
 function ExitRagdoll(ply)
+	failed = false
 	ply:DrawViewModel(true)
 	ply:SetMoveType(MOVETYPE_WALK)
 	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
@@ -125,12 +126,11 @@ function GM:Move(ply, cmd)
 
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") then
-			ExitRagdoll(ply, cmd)
 			if not failed then
+				ply:Kill()
 				net.Start("stunt_failure")
 				net.Send(ply)
 				failed = true
-				timer.Simple(0.1, function() failed = false end)
 			end
 		end
 	end

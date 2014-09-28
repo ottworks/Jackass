@@ -86,21 +86,25 @@ local function physics(ent, data, obj)
 		impact = math.floor(impact * ent:GetNWInt("mul") or 1)
 		local profit = math.floor(math.min(ent:GetNWInt("profits") + impact, 20000 + ent.random * 5000))
 		if impact > ent.BreakPoint / 4 then
-			if ent.CanSpeak then
-				ent:EmitSound(randomsound(SOUNDS.male, bone), 100, 100 + math.random(-10, 10))
-				ent.CanSpeak = false
-				timer.Simple(5, function()
-					ent.CanSpeak = true
-				end)
+			if ply:Alive() then
+				if ent.CanSpeak then
+					ent:EmitSound(randomsound(SOUNDS.male, bone), 100, 100 + math.random(-10, 10))
+					ent.CanSpeak = false
+					timer.Simple(5, function()
+						ent.CanSpeak = true
+					end)
+				end
+				ent:SetNWInt("profits", profit)
+			else
+				ent:SetNWInt("profits", 0)
 			end
-			ent:SetNWInt("profits", profit)
 		end
 	end
 end
 
 function meta:CreateRagdoll()
 	local Ent = self:GetRagdollEntity()
-	if (Ent && Ent:IsValid()) then Ent:Remove() end
+	if (Ent and Ent:IsValid()) then return end
 
 	RemoveRagdollEntity(self)
 

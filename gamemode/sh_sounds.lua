@@ -65,6 +65,15 @@ SOUNDS = {
 			"vo/npc/male01/headsup02.wav",
 
 		}
+	},
+	sfx = {
+		breakage = {
+			"jackass/bonecrack1.wav",
+			"jackass/bonecrack2.wav",
+			"jackass/bonecrack3.wav",
+			"jackass/bonecrack4.wav",
+			"jackass/bonecrack5.wav",
+		}
 	}
 }
 

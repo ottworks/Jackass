@@ -2,21 +2,21 @@
 -- Fixed for Garry's Mod 13 by Blazeard/QuentinDylanP
 -- Modified by Ott for use in his gamemode
 local meta = FindMetaTable("Player")
-if (!meta) then return end
+if ( not meta) then return end
 
 local CreateRagdoll		= meta.CreateRagdoll
 local GetRagdollEntity	= meta.GetRagdollEntity
 local lasthit
 
-// In this file we're adding functions to the player meta table.
-// This means you'll be able to call functions here straight from the player object
-// You can even override already existing functions.
+-- In this file we're adding functions to the player meta table.
+-- This means you'll be able to call functions here straight from the player object
+-- You can even override already existing functions.
 
 local mp_keepragdolls = GetConVar("mp_keepragdolls")
 
 local function PlayerDeath(ply, attacker, dmginfo)
 
-	if (ply.m_hRagdollEntity && ply.m_hRagdollEntity:IsValid()) then
+	if (ply.m_hRagdollEntity and ply.m_hRagdollEntity:IsValid()) then
 
 		ply:SpectateEntity(ply.m_hRagdollEntity)
 		ply:Spectate(OBS_MODE_CHASE)
@@ -29,7 +29,7 @@ hook.Add("PlayerDeath", "PlayerDeath", PlayerDeath)
 
 local function RemoveRagdollEntity(ply)
 
-	if (ply.m_hRagdollEntity && ply.m_hRagdollEntity:IsValid()) then
+	if (ply.m_hRagdollEntity and ply.m_hRagdollEntity:IsValid()) then
 
 		ply.m_hRagdollEntity:Remove()
 		ply.m_hRagdollEntity = nil

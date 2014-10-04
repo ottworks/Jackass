@@ -174,7 +174,7 @@ function meta:CreateRagdoll()
 	local id = self:EntIndex()
 	timer.Create("settle" .. id, 2, 0, function()
 		if not IsValid(Ent) then timer.Destroy("settle" .. id) return end
-		if Ent:GetVelocity():Length() < 10 then
+		if Ent:GetVelocity():Length() < 10 and self:Alive() then
 			if still then
 				Ent:EmitSound(table.Random(SOUNDS.male.settled), 100, 100 + math.random(-10, 10))
 				timer.Destroy("settle" .. id)

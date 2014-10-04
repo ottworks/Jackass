@@ -84,7 +84,7 @@ function EnterRagdoll(ply)
 		if IsValid(ply:GetRagdollEntity()) then
 			ply:GetRagdollEntity():SetRenderBones(true)
 			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())
-			timer.Create("ragupdate" .. ply:EntIndex(), 5, 0, function()
+			timer.Create("ragupdate" .. ply:EntIndex(), 1, 0, function()
 				if IsValid(ply:GetRagdollEntity()) then
 					ply:SetMoveType(MOVETYPE_WALK)
 					timer.Simple(0, function()
@@ -130,6 +130,7 @@ function GM:Move(ply, cmd)
 				ply:Kill()
 				net.Start("stunt_failure")
 				net.Send(ply)
+
 				failed = true
 			end
 		end
@@ -182,24 +183,25 @@ function GM:PlayerInitialSpawn(ply)
 end
 
 
-
-local time
-local count = 0
-hook.Add("Think", "cleanup", function()
-	if time then
-		if SysTime() - time > 0.03 then
-			count = count + 1
-		else
-			count = 0
+if GetConVarNumber("js_antilag") == 1 then
+	local time
+	local count = 0
+	hook.Add("Think", "cleanup", function()
+		if time then
+			if SysTime() - time > 0.03 * game.GetTimeScale() then
+				count = count + 1
+			else
+				count = 0
+			end
+			if count > 3 then
+				for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end
+				RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.03 seconds for 3 ticks)")
+				count = 0
+			end
 		end
-		if count > 3 then
-			for k, v in pairs(ents.GetAll()) do if v:GetClass() == "prop_physics" then v:Remove() end end
-			RunConsoleCommand("say", "Tick took too long to process! Cleaning up. (>0.03 seconds for 3 ticks)")
-			count = 0
-		end
-	end
-	time = SysTime()
-end)
+		time = SysTime()
+	end)
+end
 
 if GetConVarNumber("js_allowcslua") == 1 then
 	RunConsoleCommand("sv_allowcslua", "1")

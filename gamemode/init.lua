@@ -31,6 +31,7 @@ resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 local failed = false
 
 function ExitRagdoll(ply)
+	hook.Call("JackassExitRagdoll", nil, ply)
 	failed = false
 	ply:DrawViewModel(true)
 	ply:SetMoveType(MOVETYPE_WALK)
@@ -70,6 +71,7 @@ function ExitRagdoll(ply)
 	end)
 end
 function EnterRagdoll(ply)
+	hook.Call("JackassEnterRagdoll", nil, ply)
 	ply:SetActiveWeapon(NULL)
 	ply:DrawViewModel(false)
 	net.Start("stunt_begin")
@@ -80,24 +82,6 @@ function EnterRagdoll(ply)
 		ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 		ply:SetNoDraw(true)
 	end)
-	timer.Create("ragcreate", 0.1, 0, function()
-		if IsValid(ply:GetRagdollEntity()) then
-			ply:GetRagdollEntity():SetRenderBones(true)
-			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())
-			timer.Create("ragupdate" .. ply:EntIndex(), 1, 0, function()
-				if IsValid(ply:GetRagdollEntity()) then
-					ply:SetMoveType(MOVETYPE_WALK)
-					timer.Simple(0, function()
-						if IsValid(ply:GetRagdollEntity()) then
-							ply:SetPos(ply:GetRagdollEntity():GetPos())
-							ply:SetMoveType(MOVETYPE_NONE)
-						end
-					end)
-				end
-			end)
-			timer.Destroy("ragcreate")
-		end
-	end)
 end
 util.AddNetworkString("stunt_success")
 util.AddNetworkString("stunt_failure")
@@ -106,6 +90,11 @@ util.AddNetworkString("stunt_begin")
 function GM:PlayerLoadout(ply)
 	ply:SetModel("models/player/Group02/male_02.mdl")
 	--ply:GodEnable()
+end
+function GM:JackassPlayerNeckBroken(ply)
+	ply:Kill()
+	net.Start("stunt_failure")
+	net.Send(ply)
 end
 function GM:Move(ply, cmd)
 	if cmd:KeyReleased(IN_JUMP) then
@@ -127,10 +116,7 @@ function GM:Move(ply, cmd)
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") then
 			if not failed then
-				ply:Kill()
-				net.Start("stunt_failure")
-				net.Send(ply)
-
+				hook.Call("JackassPlayerNeckBroken", GM, ply)
 				failed = true
 			end
 		end
@@ -181,6 +167,28 @@ end
 function GM:PlayerInitialSpawn(ply)
 	ply:AddCallback("PhysicsCollide", playerphys)
 end
+
+hook.Add("JackassEnterRagdoll", "UpdatePlayer", function(ply)
+	timer.Create("ragcreate", 0.1, 0, function()
+		if IsValid(ply:GetRagdollEntity()) then
+			ply:GetRagdollEntity():SetRenderBones(true)
+			ply:GetRagdollEntity():SetNWInt("physcount", ply:GetRagdollEntity():GetPhysicsObjectCount())
+			timer.Create("ragupdate" .. ply:EntIndex(), 1, 0, function()
+				if IsValid(ply:GetRagdollEntity()) then
+					ply:SetMoveType(MOVETYPE_WALK)
+					timer.Simple(0, function()
+						if IsValid(ply:GetRagdollEntity()) then
+							ply:SetPos(ply:GetRagdollEntity():GetPos())
+							ply:SetMoveType(MOVETYPE_NONE)
+						end
+					end)
+				end
+			end)
+			timer.Destroy("ragcreate")
+		end
+	end)
+end)
+
 
 
 if GetConVarNumber("js_antilag") == 1 then

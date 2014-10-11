@@ -69,10 +69,18 @@ SOUNDS = {
 	sfx = {
 		breakage = {
 			"jackass/bonecrack1.wav",
-			"jackass/bonecrack2.wav",
-			"jackass/bonecrack3.wav",
-			"jackass/bonecrack4.wav",
 			"jackass/bonecrack5.wav",
+			"jackass/decap1.wav",
+			"jackass/decap2.wav",
+			"jackass/decap3.wav",
+			"jackass/decap4.wav",
+		},
+		hittage = {
+			"jackass/fall1.wav",
+			"jackass/fall2.wav",
+			"jackass/fall3.wav",
+			"jackass/fall4.wav",
+			"jackass/fall5.wav",
 		}
 	}
 }
@@ -96,4 +104,13 @@ function randomsound(t, bone)
 	local a = table.Copy(t[bone])
 	table.Add(a, t.generic)
 	return table.Random(a or {}) or ""
+end
+
+if SERVER then
+	for i = 1, #SOUNDS.sfx.breakage do
+		resource.AddFile("sound/" .. SOUNDS.sfx.breakage[i])
+	end
+	for i = 1, #SOUNDS.sfx.hittage do
+		resource.AddFile("sound/" .. SOUNDS.sfx.hittage[i])
+	end
 end

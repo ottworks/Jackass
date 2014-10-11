@@ -101,6 +101,9 @@ local function physics(ent, data, obj)
 			if impact > ent.BreakPoint / 2 then
 				ent:EmitSound(table.Random(SOUNDS.sfx.breakage), 100, 100 + math.random(-10, 10))
 			end
+			if impact > ent.BreakPoint / 3 then
+				ent:EmitSound(table.Random(SOUNDS.sfx.hittage), 100, 100 + math.random(-10, 10))
+			end
 		end
 	end
 end

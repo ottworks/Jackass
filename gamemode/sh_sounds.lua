@@ -70,10 +70,6 @@ SOUNDS = {
 		breakage = {
 			"jackass/bonecrack1.wav",
 			"jackass/bonecrack5.wav",
-			"jackass/decap1.wav",
-			"jackass/decap2.wav",
-			"jackass/decap3.wav",
-			"jackass/decap4.wav",
 		},
 		hittage = {
 			"jackass/fall1.wav",
@@ -81,6 +77,12 @@ SOUNDS = {
 			"jackass/fall3.wav",
 			"jackass/fall4.wav",
 			"jackass/fall5.wav",
+		},
+		decap = {
+			"jackass/decap1.wav",
+			"jackass/decap2.wav",
+			"jackass/decap3.wav",
+			"jackass/decap4.wav",
 		}
 	}
 }

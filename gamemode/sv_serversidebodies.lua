@@ -98,6 +98,9 @@ local function physics(ent, data, obj)
 			else
 				ent:SetNWInt("profits", 0)
 			end
+			if impact > ent.BreakPoint then
+				ent:EmitSound(table.Random(SOUNDS.sfx.decap), 100, 100 + math.random(-10, 10))
+			end
 			if impact > ent.BreakPoint / 2 then
 				ent:EmitSound(table.Random(SOUNDS.sfx.breakage), 100, 100 + math.random(-10, 10))
 			end

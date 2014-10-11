@@ -91,11 +91,12 @@ function GM:PlayerLoadout(ply)
 	ply:SetModel("models/player/Group02/male_02.mdl")
 	--ply:GodEnable()
 end
-function GM:JackassPlayerNeckBroken(ply)
+hook.Add("JackassPlayerNeckBroken", "die", function(ply)
+	print("function")
 	ply:Kill()
 	net.Start("stunt_failure")
 	net.Send(ply)
-end
+end)
 function GM:Move(ply, cmd)
 	if cmd:KeyReleased(IN_JUMP) then
 		if IsValid(ply:GetRagdollEntity()) then
@@ -116,7 +117,7 @@ function GM:Move(ply, cmd)
 	if IsValid(ply:GetRagdollEntity()) then
 		if ply:GetRagdollEntity().BoneDamage[10] >= ply:GetRagdollEntity():GetNWInt("BreakPoint") then
 			if not failed then
-				hook.Call("JackassPlayerNeckBroken", GM, ply)
+				hook.Call("JackassPlayerNeckBroken", nil, ply)
 				failed = true
 			end
 		end

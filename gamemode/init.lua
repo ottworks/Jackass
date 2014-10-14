@@ -31,44 +31,46 @@ resource.AddFile("materials/models/player/items/demo/sunt_helmet_blue.vtf")
 local failed = false
 
 function ExitRagdoll(ply)
-	hook.Call("JackassExitRagdoll", nil, ply)
-	failed = false
-	ply:DrawViewModel(true)
-	ply:SetMoveType(MOVETYPE_WALK)
-	ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
-	ply:GetRagdollEntity():SetRenderBones(false)
-	timer.Simple(0.1, function()
-		if IsValid(ply:GetRagdollEntity()) then
-			local ragpos = ply:GetRagdollEntity():GetPos()
-			local trace = {}
-			local tr = {}
-				tr.filter = {ply:GetRagdollEntity(), ply}
-				tr.start = ragpos
-				tr.endpos = ragpos
-				tr.mins = Vector(-16, -16, 0)
-				tr.maxs = Vector(16, 16, 72)
-				tr.output = trace
-				tr.mask = MASK_PLAYERSOLID
-			for i = 1, 25 do
-				util.TraceHull(tr)
-				if trace.Hit then
-					local rand = Vector(math.random(-48, 48), math.random(-48, 48), math.random(-48, 48))
-					tr.start = ragpos + rand
-					tr.endpos = ragpos + rand
-				else
-					break
+	if ply:Alive() then
+		hook.Call("JackassExitRagdoll", nil, ply)
+		failed = false
+		ply:DrawViewModel(true)
+		ply:SetMoveType(MOVETYPE_WALK)
+		ply:SetCollisionGroup(COLLISION_GROUP_PLAYER)
+		ply:GetRagdollEntity():SetRenderBones(false)
+		timer.Simple(0.1, function()
+			if IsValid(ply:GetRagdollEntity()) then
+				local ragpos = ply:GetRagdollEntity():GetPos()
+				local trace = {}
+				local tr = {}
+					tr.filter = {ply:GetRagdollEntity(), ply}
+					tr.start = ragpos
+					tr.endpos = ragpos
+					tr.mins = Vector(-16, -16, 0)
+					tr.maxs = Vector(16, 16, 72)
+					tr.output = trace
+					tr.mask = MASK_PLAYERSOLID
+				for i = 1, 25 do
+					util.TraceHull(tr)
+					if trace.Hit then
+						local rand = Vector(math.random(-48, 48), math.random(-48, 48), math.random(-48, 48))
+						tr.start = ragpos + rand
+						tr.endpos = ragpos + rand
+					else
+						break
+					end
 				end
+				if trace.Hit then
+					ply:Kill()
+				end
+				ply:SetPos(trace.HitPos)
+				ply:SetVelocity(-ply:GetVelocity() + ply:GetRagdollEntity():GetVelocity())
+				ply:GetRagdollEntity():Remove()
+				ply:SetNoDraw(false)
+				timer.Destroy("ragupdate" .. ply:EntIndex())
 			end
-			if trace.Hit then
-				ply:Kill()
-			end
-			ply:SetPos(trace.HitPos)
-			ply:SetVelocity(-ply:GetVelocity() + ply:GetRagdollEntity():GetVelocity())
-			ply:GetRagdollEntity():Remove()
-			ply:SetNoDraw(false)
-			timer.Destroy("ragupdate" .. ply:EntIndex())
-		end
-	end)
+		end)
+	end
 end
 function EnterRagdoll(ply)
 	hook.Call("JackassEnterRagdoll", nil, ply)

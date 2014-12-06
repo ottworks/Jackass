@@ -6,7 +6,6 @@ GM.Website = "https://github.com/DaaOtt/Jackass"
 include("sh_bones.lua")
 include("sh_buyables.lua")
 include("sh_sounds.lua")
-include("sh_multipliers.lua") 
 
 function GM:Initialize()
 

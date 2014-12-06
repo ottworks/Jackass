@@ -21,3 +21,8 @@ I got burnt out on this gamemode. Here's some stuff that I started but didn't fi
   * The camera was meant to be similar to Sandbox's camera tool, but limited to a tripod. You'd get bonus points for snapping pictures of your body getting hurt.
 
 You can find these unfinished features in the `development` branch. The full idea sheet can be found [here](https://docs.google.com/spreadsheets/d/1BSLAoJIIPY-ZDrQvobMXNcrUK2EIcZdlSFqZf7aBpXM/edit?usp=sharing).
+
+Contact
+=======
+Coder: [Ott](http://steamcommunity.com/profiles/76561198033321448)
+Ideas-guy: [RzDat](http://steamcommunity.com/profiles/76561198030407597/) (Contact this guy if you want to work on Jackass, but need "direction and assistance")

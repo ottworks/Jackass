@@ -24,5 +24,5 @@ You can find these unfinished features in the `development` branch. The full ide
 
 Contact
 =======
-Coder: [Ott](http://steamcommunity.com/profiles/76561198033321448)
-Ideas-guy: [RzDat](http://steamcommunity.com/profiles/76561198030407597/) (Contact this guy if you want to work on Jackass, but need "direction and assistance")
+* Coder: [Ott](http://steamcommunity.com/profiles/76561198033321448)
+* Ideas-guy: [RzDat](http://steamcommunity.com/profiles/76561198030407597/) (Contact this guy if you want to work on Jackass, but need "direction and assistance")

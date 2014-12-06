@@ -53,7 +53,6 @@ local function physics(ent, data, obj)
 			if not IsValid(data.HitEntity) then
 				--Prop break
 				if lasthit ~= id then
-					ent:AddMultiplier(2, "Prop Broken")
 					lasthit = id
 					timer.Simple(0, function()
 						lasthit = 0
@@ -65,7 +64,6 @@ local function physics(ent, data, obj)
 	if impact > 100 then
 		if string.sub(data.HitEntity:GetClass(), 1, 14) == "func_breakable" then
 			--WINDOW BREAK
-			ent:AddMultiplier(3, "Window Broken")
 		end
 	end
 	if impact > 300 then

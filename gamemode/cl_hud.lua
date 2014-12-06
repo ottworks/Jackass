@@ -4,12 +4,6 @@ surface.CreateFont("JackassMoney", {
 	outline = true,
 	antialias = false,
 })
-surface.CreateFont("JackassMultiplier", {
-	font = "321impact",
-	size = 24,
-	outline = true,
-	antialias = false,
-})
 require("easings")
 local w = ScrW()
 local h = ScrH()
@@ -104,22 +98,3 @@ function GM:HUDDrawTargetID()
 		draw.DrawText(text, "TargetID", pos.x, pos.y, Color(255, 128, 0, calcopacity(ragdoll:GetPos():Distance(LocalPlayer():GetShootPos()))), TEXT_ALIGN_CENTER)
 	end
 end
-
-local muls = {
-	font = "JackassMultiplier",
-	w = w - w / 32,
-	h = h / 32,
-	c = Color(255, 255, 255)
-}
-
-local function drawmultiplier()
-	if not IsValid(LocalPlayer():GetRagdollEntity()) then return end
-	local ply = LocalPlayer():GetRagdollEntity()
-	ply.muls = ply.muls or {}
-	draw.SimpleText("x"..ply:GetNWInt("mul"), muls.font, muls.w, muls.h, muls.c, TEXT_ALIGN_RIGHT)
-	for i = 1, #ply.muls do
-		draw.SimpleText(ply.muls[i], muls.font, muls.w, muls.h + i * 24, muls.c, TEXT_ALIGN_RIGHT)
-	end
-end
-
-hook.Add("HUDPaint", "drawmultiplier", drawmultiplier)

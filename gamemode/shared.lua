@@ -31,3 +31,7 @@ end
 function GM:PlayerFootstep(ply)
 	return IsValid(ply:GetRagdollEntity())
 end
+
+function GM:PlayerSwitchWeapon(ply, old, new)
+	return IsValid(ply:GetRagdollEntity())
+end
